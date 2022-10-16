@@ -1,5 +1,6 @@
 body {
-  padding: 50px;
+  padding: 0px;
+  margin: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,4 +10,17 @@ a {
 
 h1 {
   color: 15px;
+}
+
+.bg-mymeme {
+  background: linear-gradient(0deg, rgba(113,119,242,1) 0%, rgba(111,156,243,1) 100%);
+}
+
+.text-mymeme {
+  color: #7177f2;
+  font-weight: bold;
+}
+
+.logo {
+  height: 9vh
 }
