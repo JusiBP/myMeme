@@ -17,7 +17,7 @@ const postSchema = new Schema(
         require: false
     },
     // this second object adds extra properties: `createdAt` and `updatedAt`
-    // timestamps: true,
+    timestamps: true,
   }
 );
 
