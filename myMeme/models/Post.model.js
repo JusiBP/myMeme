@@ -10,14 +10,17 @@ const postSchema = new Schema(
     },
     date: {
       type: Date, 
-      default: Date.now,
+      default: Date.now
     },
     description: {
         type: String,
         require: false
     },
+    category: {
+      enum: ["Random", "Animals", "WTF", "Sports", "Gaming", "Politics", "News", "Anime & Manga"]
+    }
     // this second object adds extra properties: `createdAt` and `updatedAt`
-    timestamps: true,
+    // timestamps: true
   }
 );
 
