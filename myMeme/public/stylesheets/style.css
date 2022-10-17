@@ -2,6 +2,7 @@ body {
   padding: 0px;
   margin: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #131313;
 }
 
 a {
@@ -14,6 +15,7 @@ h1 {
 
 .bg-mymeme {
   background: linear-gradient(0deg, rgba(113,119,242,1) 0%, rgba(111,156,243,1) 100%);
+  height: 15vh;
 }
 
 .text-mymeme {
@@ -22,5 +24,27 @@ h1 {
 }
 
 .logo {
-  height: 9vh
+  width: 40vw;
+  max-width: 230px;
+  min-width: 160px;
+
+}
+
+.divisor {
+  height: 3vh;
+}
+
+.mainBodyText {
+  color: white;
+}
+
+.posts-mymeme { 
+  padding: 4px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.cardColorMyMeme {
+  background: linear-gradient(0deg, rgba(49,52,110,1) 23%, rgba(112,142,191,1) 100%);
 }

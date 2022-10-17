@@ -1,18 +1,17 @@
+
 {{!-- CONJUNTO COMPLETO DE NAVEGADOR --}}
  <nav class="navbar navbar-expand-lg bg-light bg-mymeme"> 
     {{!-- Contenedor "div" con tres hijos "div"--}}
-  <div class="container-fluid">
+<div class="container-fluid">
+    
     {{!-- Menú --}}
-    <div>
+    <div class="col">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown mt-2">
                     <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                     <ul class="dropdown-menu bg-mymeme">
                         <li><a class="dropdown-item text-white" href="#">Random</a></li>
@@ -25,32 +24,92 @@
                         <li><a class="dropdown-item text-white" href="#">Politics</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mt-2">
                     <a class="nav-link active text-white" aria-current="page" href="#">About Us</a>
                 </li>
             </ul>
         </div>
     </div>
+
     {{!-- myMEME LOGO --}}
-    <div>
-        <a class="navbar-brand" href="/"><img class="logo" src="images/myMeme_LOGO.png" alt="myMeme_Logo"></a>
+    <div class="col">
+        <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="/"><img class="logo" src="images/myMeme_LOGO.png" alt="myMeme_Logo"></a>
     </div>
+   
     {{!-- Login / Sign in --}}
-    <div>
+    <div class="col">
         <div class="container-fluid column text-end">
             <div>
                 <a class="btn btn-light btn-sm text-mymeme mb-2" href="/login" role="button">Login</a>
             </div>
             <div>
-                <p class="text-white m-0 p-0"> Not a myMeme member?</p>
                 <a href="/signin" class="card-link m-0 p-0">Sign in</a>
             </div>
         </div>
     </div>  
-  </div>
+</div>
 </nav>
 
-<h1>{{appTitle}} 🚀</h1>
-<p>Welcome Ironhacker!</p>
+<div class="container-fluid">
+    <div class="divisor "></div>
+    {{!-- CARDS --}}
+    <div>
+        <p class="text-light text-center">Category: <span class="text-mymeme text-center">None</span></p>
+        
+    </div>
+   
+    <div class="row justify-content-center ">
+        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
+            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
+            <img src="images/meme_ex3.jpeg" class="card-img-top" alt="meme">
+            <div class="card-body">
+                <h5 class="text-white">00/00/2023</h5>
+                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
+            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
+            <img src="images/meme_ex.jpeg" class="card-img-top" alt="meme">
+            <div class="card-body">
+                <h5 class="text-white">00/00/2023</h5>
+                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
+            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
+            <img src="images/meme_ex2.jpeg" class="card-img-top" alt="meme">
+            <div class="card-body">
+                <h5 class="text-white">00/00/2023</h5>
+                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
+            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
+            <img src="images/meme_ex3.jpeg" class="card-img-top" alt="meme">
+            <div class="card-body">
+                <h5 class="text-white">00/00/2023</h5>
+                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
+            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
+            <img src="images/meme_ex2.jpeg" class="card-img-top" alt="meme">
+            <div class="card-body">
+                <h5 class="text-white">00/00/2023</h5>
+                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
+            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
+            <img src="images/meme_ex.jpeg" class="card-img-top" alt="meme">
+            <div class="card-body">
+                <h5 class="text-white">00/00/2023</h5>
+                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
