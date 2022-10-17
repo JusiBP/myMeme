@@ -16,12 +16,12 @@ const Post = require("../models/Post.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-// GET /auth/signup
+// GET /auth/signin
 router.get("/signin", isLoggedOut, (req, res) => {
   res.render("auth/signin");
 });
 
-// POST /auth/signup
+// POST /auth/signin
 router.post("/signin", isLoggedOut, (req, res) => {
   const { username, email, password } = req.body;
 
@@ -65,7 +65,7 @@ router.post("/signin", isLoggedOut, (req, res) => {
       return User.create({ username, email, password: hashedPassword });
     })
     .then((user) => {
-      res.redirect("/auth/login");
+      res.redirect("/login");
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
