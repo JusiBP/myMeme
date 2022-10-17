@@ -3,8 +3,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 // // Require the User model in order to interact with the database
-// const User = require("../models/User.model");
-// const Post = require("../models/Post.model");
+const User = require("../models/User.model");
+const Post = require("../models/Post.model");
 
 // // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 // const isLoggedOut = require("../middleware/isLoggedOut");
