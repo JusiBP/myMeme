@@ -1,7 +1,7 @@
 <form action="/login" method="POST">
-    {{#if mensajeError}}
+    {{#if errorMessage}}
         <div class="alert alert-danger" role="alert">
-            {{mensajeError}}
+            {{errorMessage}}
         </div>
     {{/if}}
     <div class="form-floating mb-3">
