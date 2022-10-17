@@ -23,6 +23,12 @@ h1 {
   font-weight: bold;
 }
 
+.text-mymemeUser {
+  color: #262b8a;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 .logo {
   width: 40vw;
   max-width: 230px;
@@ -47,4 +53,43 @@ h1 {
 
 .cardColorMyMeme {
   background: linear-gradient(0deg, rgba(49,52,110,1) 23%, rgba(112,142,191,1) 100%);
+}
+
+.singlePostUser {
+  color: #1e226a;
+  text-decoration: none;
+  height: 7vh;
+  text-align: center;
+  padding-top: 10px;
+  font-size: x-large;
+}
+
+.singlePostImg {
+  width: 85vw;
+  display: block;
+  margin: auto;
+}
+
+.singlePostInfo {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  padding: 15px;
+  font-size: medium;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+.singlePostDate {
+  margin-top: 20px;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-size: small;
+}
+
+.postBox {
+  background: linear-gradient(0deg, rgba(49,52,110,1) 23%, rgba(112,142,191,1) 100%);
+  margin: 20px;
+  border-radius: 20px;
+  
 }

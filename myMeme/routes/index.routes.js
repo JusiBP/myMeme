@@ -6,6 +6,11 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
+/* GET SinglePost test page */
+router.get("/singlePostTest", (req, res, next) => {
+  res.render("singlePost");
+});
+
 // /* GET login page */
 // router.get("/login", (req, res, next) => {
 //   res.render("auth/login");
