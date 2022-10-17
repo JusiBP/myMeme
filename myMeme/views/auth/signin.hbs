@@ -1,0 +1,25 @@
+<form action="/signin" method="POST">
+    {{#if mensajeError}}
+        <div class="alert alert-danger" role="alert">
+            {{mensajeError}}
+        </div>
+    {{/if}}
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username">
+        <label for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
+        <label for="email">Email</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        <label for="floatingPassword">Password</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="passwordRepeat">
+        <label for="floatingPassword">Repeat password</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+    <a class="btn btn-link" href="/login">Already registered</a>
+</form>
