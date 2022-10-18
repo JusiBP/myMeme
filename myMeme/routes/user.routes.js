@@ -19,8 +19,30 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 
-// RUTA GET CREAR POST
 
+// RUTA GET UserProfile
+router.get("/", (req, res, next) => {
+    const idUser = req.params.idUser;
+    Post.find({username: idUser})
+    .then(postsUser => {
+        console.log("Hola desde UserProfile: ", postsUser)
+        const posts = {}
+        postsUser.forEach(post => {
+        posts.meme = post //solo conseguimos pasar un post.
+        })
+        console.log(posts)
+        if (req.session.currentUser) {
+            const {username} = req.session.currentUser
+            res.render("profile", {username: username, posts});
+            }
+          else {
+            res.render("profile");
+          }
+    })
+    .catch((error) => next(error));
+  });
+
+// RUTA GET CREAR POST
 router.get("/createpost", (req, res, next) => {
   const idUser = req.params.idUser;
   console.log("bbbbbbbb ", req.params);
@@ -39,9 +61,7 @@ router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
       console.log("Hola des de crearPost (POST): ", data);
       res.render("singlePost", data);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((error) => next(error));
 });
 
 // /* GET profileEdit TEST page */
