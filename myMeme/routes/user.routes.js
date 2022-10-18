@@ -33,14 +33,13 @@ router.post("/:idPost/edit", (req, res, next)=>{
 
 // RUTA POST ELIMINAR POST
 router.post("/:idPost/delete", (req, res, next)=>{
-    
-    Movie.findByIdAndRemove(req.params.id)
+    const { idPost } = req.params;
+
+    Movie.findByIdAndRemove(idPost)
     .then((postToDelete) =>{
         res.redirect("/:idUser")
     })
-    .catch(err =>{
-        console.log(err)
-    })
+    .catch(error => next(error));
 })
 
 
