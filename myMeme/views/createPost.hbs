@@ -1,4 +1,5 @@
-<form action="/createpost" method="POST" class="w-25 mx-auto m-5">
+{{>header}}
+<form action="/{{idUser}}/createpost" method="POST" class="w-25 mx-auto m-5">
         <div class="mb-3">
             <label for="Url/Image" class="form-label" ></label>
             <input type="text" class="form-control" id="title" name="memeUrl" placeholder="ImageUrl">
@@ -17,4 +18,4 @@
     </form>
 
 
-
+{{>footer}}

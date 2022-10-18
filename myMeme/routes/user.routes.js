@@ -10,8 +10,8 @@ const Post = require("../models/Post.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-
 // RUTA GET CREAR POST
+
 router.get("/createpost", (req, res, next) => {
   res.render("createPost");
 });
@@ -28,49 +28,52 @@ router.post("/createpost", (req, res, next) => {
 });
 
 // RUTA GET EDITAR POST
-router.get("/:idPost/edit", (req, res, next)=>{
-    Post.findById(req.params.idPost)
-    .then((postToEdit) =>{
-        res.render("user/post-edit", {post: postToEdit})
+router.get("/:idPost/edit", (req, res, next) => {
+  Post.findById(req.params.idPost)
+    .then((postToEdit) => {
+      res.render("user/post-edit", { post: postToEdit });
     })
-    .catch(error => next(error));
+    .catch((error) => next(error));
 });
 
 // RUTA POST EDITAR POST
-router.post("/:idPost/edit", (req, res, next)=>{
-    const { idPost } = req.params;
-    const { memeUrl, description, category } = req.body;
-    
-    Post.findByIdAndUpdate(idPost, { memeUrl, description, category }, { new: true })
-    .then((updatedPost) =>{
-        res.redirect(`:idUser/${updatedPost.id}`)
+router.post("/:idPost/edit", (req, res, next) => {
+  const { idPost } = req.params;
+  const { memeUrl, description, category } = req.body;
+
+  Post.findByIdAndUpdate(
+    idPost,
+    { memeUrl, description, category },
+    { new: true }
+  )
+    .then((updatedPost) => {
+      res.redirect(`:idUser/${updatedPost.id}`);
     })
-    .catch(error => next(error));
+    .catch((error) => next(error));
 });
 
 // RUTA POST ELIMINAR POST
-router.post("/:idPost/delete", (req, res, next)=>{
-    const { idPost } = req.params;
+router.post("/:idPost/delete", (req, res, next) => {
+  const { idPost } = req.params;
 
-    Movie.findByIdAndRemove(idPost)
-    .then((postToDelete) =>{
-        res.redirect("/:idUser")
+  Movie.findByIdAndRemove(idPost)
+    .then((postToDelete) => {
+      res.redirect("/:idUser");
     })
-    .catch(error => next(error));
+    .catch((error) => next(error));
 });
 
 /* GET SinglePost page */
 router.get("/:idPost", (req, res, next) => {
   Post.findById(req.params.idPost)
-  .populate("username")
-  .then (result => {
-      const data = {post: result}
+    .populate("username")
+    .then((result) => {
+      const data = { post: result };
       res.render("singlePost", data);
-  })
-  .catch(err => {
+    })
+    .catch((err) => {
       console.log("error: ", err);
-  }) 
+    });
 });
-
 
 module.exports = router;
