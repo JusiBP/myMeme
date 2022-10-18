@@ -15,16 +15,17 @@ const postSchema = new Schema({
     require: false,
   },
   category: {
-    enum: [
-      "Random",
-      "Animals",
-      "Wtf",
-      "Sports",
-      "Gaming",
-      "Politics",
-      "News",
-      "Anime&Manga",
-    ],
+    type: String,
+    // enum: [
+    //   "Random",
+    //   "Animals",
+    //   "Wtf",
+    //   "Sports",
+    //   "Gaming",
+    //   "Politics",
+    //   "News",
+    //   "Anime&Manga",
+    // ],
   },
   // this second object adds extra properties: `createdAt` and `updatedAt`
   // timestamps: true,
