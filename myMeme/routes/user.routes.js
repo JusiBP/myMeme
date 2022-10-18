@@ -27,8 +27,13 @@ router.post("/createpost", (req, res, next) => {
     });
 });
 
+// /* GET profileEdit TEST page */
+router.get("/profileEdit", (req, res, next) => {
+    res.render("profileEdit");
+  });
+
 // RUTA GET EDITAR POST
-router.get("/:idPost/edit", (req, res, next)=>{
+router.get("/:idPost/postEdit", (req, res, next)=>{
     Post.findById(req.params.idPost)
     .then((postToEdit) =>{
         res.render("user/post-edit", {post: postToEdit})
@@ -37,7 +42,7 @@ router.get("/:idPost/edit", (req, res, next)=>{
 });
 
 // RUTA POST EDITAR POST
-router.post("/:idPost/edit", (req, res, next)=>{
+router.post("/:idPost/postEdit", (req, res, next)=>{
     const { idPost } = req.params;
     const { memeUrl, description, category } = req.body;
     
