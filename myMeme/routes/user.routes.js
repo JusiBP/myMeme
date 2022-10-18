@@ -57,7 +57,7 @@ router.get("/:idPost/postEdit", (req, res, next) => {
 });
 
 // RUTA POST EDITAR POST
-router.post("/:idPost/ppostEdit", (req, res, next) => {
+router.post("/:idPost/postEdit", (req, res, next) => {
   const { idPost } = req.params;
   const { memeUrl, description, category } = req.body;
   const { idUser } = req.params;
