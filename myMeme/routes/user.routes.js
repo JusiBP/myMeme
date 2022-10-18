@@ -21,14 +21,4 @@ router.get("/:idUser/:idPost", (req, res, next) => {
     }) 
   });
 
-  router.get("/:idMovie", (req, res, next) => {  //GET movie por id y renderizar vista movie-details con los datos de la pelicula seleccionada.
-    Movie.findById(req.params.idMovie)
-    .populate("cast") //Puesto que cast es una id que conecta con el model celebrity, populate nos hace un incrustado de los datos para que podamos disponer de ellos. OJO, en este caso devuelve un array, de ahí el forEach en el hbs.
-    .then (result => {
-        const data = {movie: result}
-        res.render("movies.views/movie-details", data); //renderizado de la view movie-details (pasamos data de la movie para rellenar la pagina)
-    })
-    .catch(err => {
-        console.log("error: ", err);
-    }) 
-  });
+

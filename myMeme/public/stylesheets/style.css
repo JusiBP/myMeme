@@ -93,3 +93,24 @@ h1 {
   border-radius: 20px;
   
 }
+
+.backgroundColorMyMeme {
+  background-color: rgb(32, 32, 32);
+  padding: 20px;
+}
+
+.formsDiv {
+  padding-top: 15%;
+  margin: auto;
+  width: 60vw;
+}
+
+.editPicUser {
+  width: 40vw;
+  display: block;
+  margin: auto;
+  padding: 20px;
+}
+.editTitle {
+  text-align: center;
+}

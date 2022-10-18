@@ -21,4 +21,17 @@ router.get("/singlePostTest", (req, res, next) => {
 //   res.render("auth/signin");
 // });
 
+router.get("/profileEdit", (req, res, next) => {
+  res.render("profileEdit");
+  // Post.findById(req.params.idPost)
+  // .populate("username")
+  // .then (result => {
+  //     const data = {post: result}
+  //     res.render("singlePost", data);
+  // })
+  // .catch(err => {
+  //     console.log("error: ", err);
+  // }) 
+});
+
 module.exports = router;
