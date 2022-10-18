@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 const mongoose = require("mongoose");
 const multer = require("multer");
 
@@ -23,8 +23,8 @@ const uploader = multer({
 // RUTA GET CREAR POST
 router.get("/createpost", (req, res, next) => {
   const idUser = req.params.idUser;
-  console.log(req.params)
-  res.render("createPost", idUser);
+  console.log("bbbbbbbb ",req.params)
+  res.render("createPost", {idUser});
 });
 
 // RUTA POST CREAR POST
