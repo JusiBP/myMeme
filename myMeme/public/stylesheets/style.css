@@ -100,9 +100,10 @@ h1 {
 }
 
 .formsDiv {
-  padding-top: 15%;
+  padding-top: 6%;
   margin: auto;
   width: 60vw;
+  max-width: 570px;
 }
 
 .editPicUser {
@@ -110,7 +111,12 @@ h1 {
   display: block;
   margin: auto;
   padding: 20px;
+  max-width: 370px;
 }
 .editTitle {
   text-align: center;
+}
+.header2 {
+  height: 8vh;
+  padding: 15px;
 }
