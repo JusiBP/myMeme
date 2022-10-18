@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router({mergeParams: true});
+const router = express.Router({ mergeParams: true });
 const mongoose = require("mongoose");
 const multer = require("multer");
 
@@ -11,31 +11,30 @@ const Post = require("../models/Post.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-
 const uploader = multer({
-    dest:"./public/uploaded", //referència és arrel del projecte, no movie.routes.js
-    limits: {
-        fileSize: 2000000
-    }
-})
-
+  dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
+  limits: {
+    fileSize: 2000000,
+  },
+});
 
 // RUTA GET CREAR POST
+
 router.get("/createpost", (req, res, next) => {
   const idUser = req.params.idUser;
-  console.log("bbbbbbbb ",req.params)
-  res.render("createPost", {idUser});
+  console.log("bbbbbbbb ", req.params);
+  res.render("createPost", { idUser });
 });
 
 // RUTA POST CREAR POST
 router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
-  console.log("hola desde crear POST")
+  console.log("hola desde crear POST");
   Post.create(req.body)
     .then((post) => {
-        const data = {
-            post: post
-        }
-    console.log("Hola des de crearPost (POST): ", data)
+      const data = {
+        post: post,
+      };
+      console.log("Hola des de crearPost (POST): ", data);
       res.render("singlePost", data);
     })
     .catch((err) => {
@@ -49,51 +48,54 @@ router.get("/profileEdit", (req, res, next) => {
   });
 
 // RUTA GET EDITAR POST
-router.get("/:idPost/postEdit", (req, res, next)=>{
-    Post.findById(req.params.idPost)
-    .then((postToEdit) =>{
-        res.render("user/post-edit", {post: postToEdit})
+router.get("/:idPost/postEdit", (req, res, next) => {
+  Post.findById(req.params.idPost)
+    .then((postToEdit) => {
+      res.render("user/post-edit", { post: postToEdit });
     })
-    .catch(error => next(error));
+    .catch((error) => next(error));
 });
 
 // RUTA POST EDITAR POST
-router.post("/:idPost/ppostEdit", (req, res, next)=>{
-    const { idPost } = req.params;
-    const { memeUrl, description, category } = req.body;
-    const { idUser } = req.params;
-    
-    Post.findByIdAndUpdate(idPost, { memeUrl, description, category }, { new: true })
-    
-    .then((updatedPost) =>{
-        res.redirect(`${idUser}/${updatedPost.id}`)
+router.post("/:idPost/ppostEdit", (req, res, next) => {
+  const { idPost } = req.params;
+  const { memeUrl, description, category } = req.body;
+  const { idUser } = req.params;
+
+  Post.findByIdAndUpdate(
+    idPost,
+    { memeUrl, description, category },
+    { new: true }
+  )
+
+    .then((updatedPost) => {
+      res.redirect(`${idUser}/${updatedPost.id}`);
     })
-    .catch(error => next(error));
+    .catch((error) => next(error));
 });
 
 // RUTA POST ELIMINAR POST
-router.post("/:idPost/delete", (req, res, next)=>{
-    const { idPost } = req.params;
+router.post("/:idPost/delete", (req, res, next) => {
+  const { idPost } = req.params;
 
-    Movie.findByIdAndRemove(idPost)
-    .then((postToDelete) =>{
-        res.redirect("/:idUser")
+  Movie.findByIdAndRemove(idPost)
+    .then((postToDelete) => {
+      res.redirect("/:idUser");
     })
-    .catch(error => next(error));
+    .catch((error) => next(error));
 });
 
 /* GET SinglePost page */
 router.get("/:idPost", (req, res, next) => {
   Post.findById(req.params.idPost)
-  .populate("username")
-  .then (result => {
-      const data = {post: result}
+    .populate("username")
+    .then((result) => {
+      const data = { post: result };
       res.render("singlePost", data);
-  })
-  .catch(err => {
+    })
+    .catch((err) => {
       console.log("error: ", err);
-  }) 
+    });
 });
-
 
 module.exports = router;

@@ -26,9 +26,9 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
 // Connects the mongo uri to maintain the same naming structure
-const MONGO_URI =
-  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/myMeme";
+const MONGO_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/myMeme";
 
+const hbs = require("hbs");
 // Middleware configuration
 module.exports = (app) => {
   // In development environment the app logs
@@ -44,6 +44,7 @@ module.exports = (app) => {
   // Sets the view engine to handlebars
   app.set("view engine", "hbs");
   // AHandles access to the public folder
+
   app.use(express.static(path.join(__dirname, "..", "public")));
 
   // Handles access to the favicon
