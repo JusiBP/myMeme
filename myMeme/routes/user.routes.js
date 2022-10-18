@@ -1,6 +1,7 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 const mongoose = require("mongoose");
+const multer = require("multer");
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
@@ -11,16 +12,31 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 
+const uploader = multer({
+    dest:"./public/uploaded", //referència és arrel del projecte, no movie.routes.js
+    limits: {
+        fileSize: 2000000
+    }
+})
+
+
 // RUTA GET CREAR POST
 router.get("/createpost", (req, res, next) => {
-  res.render("createPost");
+  const idUser = req.params.idUser;
+  console.log("bbbbbbbb ",req.params)
+  res.render("createPost", {idUser});
 });
 
 // RUTA POST CREAR POST
-router.post("/createpost", (req, res, next) => {
+router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
+  console.log("hola desde crear POST")
   Post.create(req.body)
-    .then((result) => {
-      res.render("index");
+    .then((post) => {
+        const data = {
+            post: post
+        }
+    console.log("Hola des de crearPost (POST): ", data)
+      res.render("singlePost", data);
     })
     .catch((err) => {
       console.log(err);
@@ -42,13 +58,15 @@ router.get("/:idPost/postEdit", (req, res, next)=>{
 });
 
 // RUTA POST EDITAR POST
-router.post("/:idPost/postEdit", (req, res, next)=>{
+router.post("/:idPost/ppostEdit", (req, res, next)=>{
     const { idPost } = req.params;
     const { memeUrl, description, category } = req.body;
+    const { idUser } = req.params;
     
     Post.findByIdAndUpdate(idPost, { memeUrl, description, category }, { new: true })
+    
     .then((updatedPost) =>{
-        res.redirect(`:idUser/${updatedPost.id}`)
+        res.redirect(`${idUser}/${updatedPost.id}`)
     })
     .catch(error => next(error));
 });
