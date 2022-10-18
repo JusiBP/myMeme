@@ -3,6 +3,13 @@ const router = express.Router({ mergeParams: true });
 const mongoose = require("mongoose");
 const multer = require("multer");
 
+const uploader = multer({
+    dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
+    limits: {
+      fileSize: 2000000,
+    },
+  });
+
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
 const Post = require("../models/Post.model");
@@ -11,12 +18,6 @@ const Post = require("../models/Post.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-const uploader = multer({
-  dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
-  limits: {
-    fileSize: 2000000,
-  },
-});
 
 // RUTA GET CREAR POST
 
@@ -28,8 +29,9 @@ router.get("/createpost", (req, res, next) => {
 
 // RUTA POST CREAR POST
 router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
-  console.log("hola desde crear POST");
-  Post.create(req.body)
+  console.log("hola desde crear POST: ", req.body);
+  const {category, description} = req.body
+  Post.create({ category, description, memeUrl: "/uploaded/" + req.file.filename })
     .then((post) => {
       const data = {
         post: post,
@@ -62,14 +64,10 @@ router.post("/:idPost/postEdit", (req, res, next) => {
   const { memeUrl, description, category } = req.body;
   const { idUser } = req.params;
 
-  Post.findByIdAndUpdate(
-    idPost,
-    { memeUrl, description, category },
-    { new: true }
-  )
+  Post.findByIdAndUpdate(idPost,{ memeUrl, description, category },{ new: true })
 
     .then((updatedPost) => {
-      res.redirect(`${idUser}/${updatedPost.id}`);
+      res.redirect(`/${idUser}/${updatedPost.id}`);
     })
     .catch((error) => next(error));
 });
@@ -90,6 +88,7 @@ router.get("/:idPost", (req, res, next) => {
   Post.findById(req.params.idPost)
     .populate("username")
     .then((result) => {
+        console.log("hola desde SINGLEPOST:", result)
       const data = { post: result };
       res.render("singlePost", data);
     })

@@ -1,6 +1,6 @@
 {{>header}}
-
 <form action="/{{idUser}}/createpost" method="POST" class="w-25 mx-auto m-5" enctype="multipart/form-data">
+
         <div class="mb-3">
             <label for="file" class="form-label text-white" >Add Meme</label>
             <input type="file" class="form-control-file" id="file" name="memeUrl" placeholder="Meme File">
@@ -10,12 +10,9 @@
             <input type="text" class="form-control" id="category" name="category" placeholder="Category">
         </div>
         <div class="mb-3">
-            <textarea class="form-control" placeholder="Description" id="description" name="description" style="height: 100px"></textarea> 
+            <textarea class="form-control" placeholder="Description" id="description" name="description" style="height: 100px"></textarea>             
             <label for="description">Description</label>
         </div>
-        
-        
-            <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-
+        <button type="submit" class="btn btn-primary">Save</button>
+</form>
 {{>footer}}

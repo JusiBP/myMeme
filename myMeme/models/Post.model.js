@@ -15,6 +15,7 @@ const postSchema = new Schema({
     require: false,
   },
   category: {
+    type: String,
     enum: [
       "Random",
       "Animals",
