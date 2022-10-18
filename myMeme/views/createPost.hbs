@@ -1,15 +1,15 @@
-<form action="/createpost" method="POST" class="w-25 mx-auto m-5">
+<form action="/{{idUser}}/createpost" method="POST" class="w-25 mx-auto m-5" enctype="multipart/form-data">
         <div class="mb-3">
-            <label for="Url/Image" class="form-label" ></label>
-            <input type="text" class="form-control" id="title" name="memeUrl" placeholder="ImageUrl">
+            <label for="file" class="form-label" >Add Meme</label>
+            <input type="file" class="form-control-file" id="file" name="memeUrl" placeholder="Meme File">
         </div>
         <div class="mb-3">
-            <label for="genre" class="form-label">Genre</label>
-            <input type="text" class="form-control" id="genre" name="category" placeholder="Category">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" class="form-control" id="category" name="category" placeholder="Category">
         </div>
         <div class="mb-3">
-            <label for="plot" class="form-label">Plot</label> 
-            <input type="text" class="form-control" id="cast" name="description" placeholder="Description">
+            <textarea class="form-control" placeholder="Description" id="description" style="height: 100px"></textarea> 
+            <label for="description">Description</label>
         </div>
         
         

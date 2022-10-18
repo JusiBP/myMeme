@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const multer = require("multer");
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
@@ -11,13 +12,24 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 
+const uploader = multer({
+    dest:"./public/uploaded", //referència és arrel del projecte, no movie.routes.js
+    limits: {
+        fileSize: 2000000
+    }
+})
+
+
 // RUTA GET CREAR POST
 router.get("/createpost", (req, res, next) => {
-  res.render("createPost");
+  const idUser = req.params.idUser;
+  console.log(req.params)
+  res.render("createPost", idUser);
 });
 
 // RUTA POST CREAR POST
-router.post("/createpost", (req, res, next) => {
+router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
+  console.log("hola desde crear POST")
   Post.create(req.body)
     .then((result) => {
       res.render("index");
