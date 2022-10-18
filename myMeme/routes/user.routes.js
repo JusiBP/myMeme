@@ -29,7 +29,6 @@ router.post("/createpost", (req, res, next) => {
 
 // RUTA GET EDITAR POST
 router.get("/:idPost/edit", (req, res, next)=>{
-
     Post.findById(req.params.idPost)
     .then((postToEdit) =>{
         res.render("user/post-edit", {post: postToEdit})
@@ -58,6 +57,19 @@ router.post("/:idPost/delete", (req, res, next)=>{
         res.redirect("/:idUser")
     })
     .catch(error => next(error));
+});
+
+/* GET SinglePost page */
+router.get("/:idPost", (req, res, next) => {
+  Post.findById(req.params.idPost)
+  .populate("username")
+  .then (result => {
+      const data = {post: result}
+      res.render("singlePost", data);
+  })
+  .catch(err => {
+      console.log("error: ", err);
+  }) 
 });
 
 

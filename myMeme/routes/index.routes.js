@@ -6,14 +6,23 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
-// /* GET login page */
-// router.get("/login", (req, res, next) => {
-//   res.render("auth/login");
-// });
+/* GET SinglePost TEST page */
+router.get("/singlePostTest", (req, res, next) => {
+  res.render("singlePost");
+});
 
-// /* GET Sign in page */
-// router.get("/signin", (req, res, next) => {
-//   res.render("auth/signin");
-// });
+/* GET profileEdit TEST page */
+router.get("/profileEdit", (req, res, next) => {
+  res.render("profileEdit");
+  // Post.findById(req.params.idPost)
+  // .populate("username")
+  // .then (result => {
+  //     const data = {post: result}
+  //     res.render("singlePost", data);
+  // })
+  // .catch(err => {
+  //     console.log("error: ", err);
+  // }) 
+});
 
 module.exports = router;
