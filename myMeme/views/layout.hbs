@@ -10,7 +10,9 @@
   </head>
 
   <body>
-    {{> header}}
+    {{!-- if user logged in {{> headerLoggedUser}} --}}
+    {{> headerLoggedUser }}
+    {{!-- if user logged in {{> headerLoggedUser}} --}}
     {{{body}}}
     {{> footer}}
 

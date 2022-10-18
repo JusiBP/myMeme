@@ -32,12 +32,16 @@
 
     {{!-- myMEME LOGO --}}
     <div class="col">
-        <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="/"><img class="logo" src="../images/myMeme_LOGO.png" alt="myMeme_Logo"></a>
+        {{!-- <a class="navbar-brand position-absolute top-50 start-50 translate-middle float-right" href="/"><img class="logo" src="../images/myMeme_LOGO.png" alt="myMeme_Logo"></a> --}}
     </div>
    
     {{!-- Login / Sign in --}}
+     
     <div class="col">
-        <a href="/"><img src="/images/userImage.png" alt="userImage" class="img-fluid" width="20%"> </a>
+        <a href="/{{idUser}}"><img src="/images/userImage.png" alt="userImage" class="img-fluid" width="10%"> </a>
+        <div class="col">
+        <a href="/234234/createpost"><img src="/images/userImage.png" alt="userImage" class="img-fluid" width="20%"> </a>
+    </div>  
     </div>  
 </div>
 </nav>

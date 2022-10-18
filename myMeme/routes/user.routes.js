@@ -92,5 +92,8 @@ router.get("/:idPost", (req, res, next) => {
       console.log("error: ", err);
     });
 });
+router.get("/", (req, res, next) => {
+  res.render("userProfile");
+});
 
 module.exports = router;
