@@ -31,8 +31,12 @@ router.get("/createpost", (req, res, next) => {
 router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
   console.log("hola desde crear POST")
   Post.create(req.body)
-    .then((result) => {
-      res.render("index");
+    .then((post) => {
+        const data = {
+            post: post
+        }
+    console.log("Hola des de crearPost (POST): ", data)
+      res.render("singlePost", data);
     })
     .catch((err) => {
       console.log(err);
@@ -40,7 +44,7 @@ router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
 });
 
 // RUTA GET EDITAR POST
-router.get("/:idPost/edit", (req, res, next)=>{
+router.get("/:idPost/postEdit", (req, res, next)=>{
     Post.findById(req.params.idPost)
     .then((postToEdit) =>{
         res.render("user/post-edit", {post: postToEdit})
@@ -49,13 +53,15 @@ router.get("/:idPost/edit", (req, res, next)=>{
 });
 
 // RUTA POST EDITAR POST
-router.post("/:idPost/edit", (req, res, next)=>{
+router.post("/:idPost/ppostEdit", (req, res, next)=>{
     const { idPost } = req.params;
     const { memeUrl, description, category } = req.body;
+    const { idUser } = req.params;
     
     Post.findByIdAndUpdate(idPost, { memeUrl, description, category }, { new: true })
+    
     .then((updatedPost) =>{
-        res.redirect(`:idUser/${updatedPost.id}`)
+        res.redirect(`${idUser}/${updatedPost.id}`)
     })
     .catch(error => next(error));
 });
