@@ -8,7 +8,7 @@ const postSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now,
+    default: new Date,
   },
   description: {
     type: String,
