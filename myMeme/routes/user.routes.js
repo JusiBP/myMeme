@@ -23,13 +23,10 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 // RUTA GET UserProfile
 router.get("/", (req, res, next) => {
     const idUser = req.params.idUser;
-    Post.find({username: idUser})
+    Post.find({userInfo: idUser})
+    .populate("userInfo")
     .then(postsUser => {
         console.log("Hola desde UserProfile: ", postsUser)
-        const posts = {}
-        postsUser.forEach(post => {
-        posts.meme = post //solo conseguimos pasar un post.
-        })
         console.log(posts)
         if (req.session.currentUser) {
             const {username} = req.session.currentUser
@@ -53,7 +50,7 @@ router.get("/createpost", (req, res, next) => {
 router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
   console.log("hola desde crear POST: ", req.body);
   const {category, description} = req.body
-  Post.create({ category, description, memeUrl: "/uploaded/" + req.file.filename })
+  Post.create({ userInfo: req.params.idUser, category, description, memeUrl: "/uploaded/" + req.file.filename })
     .then((post) => {
       const data = {
         post: post,
