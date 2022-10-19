@@ -63,11 +63,10 @@ router.post("/signin", isLoggedOut, (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username, email, password: hashedPassword });
+      return User.create({ username, email, password: hashedPassword, imageUser: "/uploaded/" + req.file.filename });
     })
     .then((user) => {
       req.session.currentUser = user
-      console.log("Hola desde Signin (POST): ",user)
       res.redirect("/");
     })
     .catch((error) => {

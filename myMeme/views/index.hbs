@@ -21,12 +21,12 @@
     <div class="row justify-content-center ">
          {{#each post}}
         <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
-            <a href="/{{this.userInfo._id}}" class="btn btn-light text-mymeme btn-sm mb-2">{{this.userInfo.username}}</a>
-            <a href="/{{this.userInfo._id}}/{{this._id}}"><img src="{{this.memeUrl}}" class="card-img-top" alt="userPic"></a>
+            <a href="/{{userId}}" class="btn btn-light text-mymeme btn-sm mb-2">{{username}}</a>
+            <a href="/{{userId}}/{{_id}}"><img src="{{memeUrl}}" class="card-img-top" alt="userPic"></a>
             <div class="card-body">
-                <h5 class="text-white">{{this.date}}</h5>
-                <p class="card-text text-white">{{this.description}}</p>
-                <p class="card-text text-mymeme">{{this.category}}</p>
+                <h5 class="text-white">{{date}}</h5>
+                <p class="card-text text-white">{{description}}</p>
+                <p class="card-text text-mymeme">{{category}}</p>
             </div>
         </div>
          {{/each}}
