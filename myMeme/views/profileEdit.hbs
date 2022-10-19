@@ -1,3 +1,9 @@
+{{#if username}}
+    {{> headerLoggedUser}}
+{{else}}
+    {{> header}}
+{{/if}}
+
 {{!-- myMEME LOGO --}}
 <div class="header2">
         <a class="navbar-brand p-20" href="/"><img class="logo rounded mx-auto d-block" src="../images/myMeme_LOGO.png" alt="myMeme_Logo"></a>
@@ -21,18 +27,4 @@
     </div>   
 </div>
 
-
-
-{{!-- <div class="formsDiv">
-    <div class="bg-primary">
-        <div class="bg-primary">
-           <p>hola</p>
-        </div>
-        <div class="bg-danger">
-           <p>hola</p>
-        </div>
-        <div class="bg-light">
-           <p>hola</p>
-        </div>
-    </div>
-</div> --}}
+{{> footer}}

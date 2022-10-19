@@ -1,7 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const postSchema = new Schema({
-  // username: { type: Schema.Types.ObjectId, ref: "User" },
+  userInfo: { 
+    type: Schema.Types.ObjectId, ref: "User",
+    require: true,
+  },
   memeUrl: {
     type: String,
     require: true,
