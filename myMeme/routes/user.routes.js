@@ -40,7 +40,6 @@ router.get("/", (req, res, next) => {
 // RUTA GET CREAR POST
 router.get("/createpost", (req, res, next) => {
   const idUser = req.params.idUser;
-  console.log("bbbbbbbb ", req.params);
   res.render("createPost", { idUser });
 });
 
