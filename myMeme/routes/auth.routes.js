@@ -76,7 +76,7 @@ router.post("/signin", isLoggedOut, (req, res) => {
         res.status(500).render("auth/signin", {
           errorMessage:
             "Username and email need to be unique. Provide a valid username or email.",
-        });
+        })
       } else {
         next(error);
       }
