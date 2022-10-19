@@ -23,7 +23,7 @@ const userSchema = new Schema(
     },
     imageUser: {
       type: String,
-      default: "../public/images/profileuser.jpeg"
+      default: "../public/images/profileuser.jpeg" //falta mirar bien con cloudinary
     }
   },
   {
