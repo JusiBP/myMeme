@@ -5,15 +5,15 @@ const router = express.Router();
 /* GET home page */
 router.get("/", (req, res, next) => {
   Post.find()
+  .populate("userInfo")
   .then(post => {
-    const {_id, username, memeUrl, category, description} = post;
     console.log("hola desde index posts: ",post)
     if (req.session.currentUser) {
       const {username} = req.session.currentUser
       res.render("index", {username: username, post});
       }
     else {
-      res.render("index", post);
+      res.render("index", {post});
     }
   })
 });
