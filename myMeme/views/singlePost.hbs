@@ -3,15 +3,15 @@
 <div class="container-fluid">
     <div class="row">
         <div class="blockColor singlePostUser">
-            <a href="/:idUser" class="text-mymemeUser">{{username}}</a>
+            <a href="/:idUser" class="text-mymemeUser">{{post.username}}</a>
         </div>
         <hr></hr>
         <div class="blockColor">
-            <img src={{memeUrl}} class="img-fluid singlePostImg" alt="meme">
+            <img src={{post.memeUrl}} class="img-fluid singlePostImg" alt="meme">
         </div>
         <div class="blockColor">
-            <h5 class="singlePostDate">{{date}}</h5>
-            <p class="singlePostInfo">{{description}}</p>
+            <h5 class="singlePostDate">{{post.date}}</h5>
+            <p class="singlePostInfo">{{post.description}}</p>
         </div>
     </div>
 </div>

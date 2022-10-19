@@ -1,20 +1,45 @@
+{{> header}}
+<div class="divisor "></div>
+{{!-- CARDS --}}
+<div>
+    <p class="text-light text-center">Category: <span class="text-mymeme text-center">None</span></p> 
+</div>
 
-
-
-<div class="container-fluid">
-    <div class="divisor "></div>
-    {{!-- CARDS --}}
-    <div>
-        <p class="text-light text-center">Category: <span class="text-mymeme text-center">None</span></p> 
-    </div>
-
-    {{#if username}}
-    <p class="text-white">hola {{username}}</p>
-    {{else}}
-    <p class="text-white">hola nadie</p>
-    {{/if}}
+{{#if username}}
+<p class="text-white">hola {{username}}</p>
+{{else}}
+<p class="text-white">hola nadie</p>
+{{/if}}
    
+    
+ <div class="container-fluid">
     <div class="row justify-content-center ">
+         {{#each post}}
+        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
+            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">{{this.username}}</a>
+            <a href="/{{idUser}}/{{this._id}}"><img src="{{this.memeUrl}}" class="card-img-top" alt="userPic"></a>
+            <div class="card-body">
+                <h5 class="text-white">{{this.date}}</h5>
+                <p class="card-text text-white">{{this.description}}</p>
+            </div>
+        </div>
+         {{/each}}
+    </div>
+</div>
+{{> footer}}
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- <div class="row justify-content-center ">
         <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
             <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
             <a href="/singlePostTest"><img src="images/meme_ex3.jpeg" class="card-img-top" alt="userPic"></a>
@@ -63,8 +88,7 @@
                 <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             </div>
         </div>
-    </div>
-</div>
+    </div> --}}
 
 
 

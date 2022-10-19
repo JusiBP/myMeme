@@ -1,29 +1,32 @@
 const { Schema, model } = require("mongoose");
 
 const postSchema = new Schema({
-  username: { type: Schema.Types.ObjectId, ref: "User" },
+  // username: { type: Schema.Types.ObjectId, ref: "User" },
   memeUrl: {
     type: String,
     require: true,
   },
   date: {
     type: Date,
-    default: Date.now,
+    default: new Date,
   },
   description: {
     type: String,
     require: false,
   },
   category: {
+    type: String,
     enum: [
       "Random",
       "Animals",
-      "Wtf",
+      "WTF",
       "Sports",
       "Gaming",
       "Politics",
       "News",
       "Anime&Manga",
+      "Classics",
+      "TV"
     ],
   },
   // this second object adds extra properties: `createdAt` and `updatedAt`
