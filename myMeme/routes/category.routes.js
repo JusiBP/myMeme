@@ -3,20 +3,45 @@ const Post = require("../models/Post.model");
 const router = express.Router();
 
 /* GET Category */
-router.get("/", (req, res, next) => {
-    Post.find()
-    .populate("userInfo")
-    .then(post => {
-      console.log("hola desde index posts: ",post)
-      if (req.session.currentUser) {
-        const {username} = req.session.currentUser
-        res.render("index", {username: username, post});
+router.get("/:category", (req, res, next) => {
+    console.log ("EN RUTA! params:", req.params )
+    if (req.params.category === "All"){
+        res.redirect("/");
+    }
+    else{
+        Post.find({category: req.params.category})
+        .then(post => {
+            console.log("hola desde category posts: ",post)
+            //   post.category = "WTF"
+            if (req.session.currentUser) {
+            const {username} = req.session.currentUser
+            res.render("index", {username: username, post});
+            }
+            else {
+            res.render("index", {post});
         }
-      else {
-        res.render("index", {post});
-      }
-    })
-  });
+        })
+    }
+});
+
+
+
+// /* GET Category */
+// router.get("/WTF", (req, res, next) => {
+//     console.log ("EN RUTA!")
+//     Post.find({category:"WTF"})
+//     .then(post => {
+//       console.log("hola desde category WTF posts: ",post)
+//     //   post.category = "WTF"
+//       if (req.session.currentUser) {
+//         const {username} = req.session.currentUser
+//         res.render("index", {username: username, post});
+//         }
+//       else {
+//         res.render("index", {post});
+//       }
+//     })
+// });
   
 
 module.exports = router;

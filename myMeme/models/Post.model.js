@@ -20,6 +20,7 @@ const postSchema = new Schema({
   category: {
     type: String,
     enum: [
+      "All",
       "Random",
       "Animals",
       "WTF",

@@ -7,7 +7,6 @@ router.get("/", (req, res, next) => {
   Post.find()
   .populate("userInfo")
   .then(post => {
-    console.log("hola desde index posts: ",post)
     let dateString = "";
     const postsModified = post.map((post1) => {
       dateString =
@@ -25,15 +24,14 @@ router.get("/", (req, res, next) => {
         description: post1.description,
         date: dateString,
       };
-      console.log ("newObject: ", newObject)
       return newObject;
     });
     if (req.session.currentUser) {
       const {username} = req.session.currentUser
-      res.render("index", {username: username, post: postsModified});
+      res.render("index", {username, post: postsModified});
       }
     else {
-      res.render("index", {post});
+      res.render("index", {post: postsModified});
     }
   })
 });
@@ -72,23 +70,23 @@ router.get("/", (req, res, next) => {
 //   });
 // });
 
-/* GET SinglePost TEST page */
-router.get("/singlePostTest", (req, res, next) => {
-  res.render("singlePost");
-});
+// /* GET SinglePost TEST page */
+// router.get("/singlePostTest", (req, res, next) => {
+//   res.render("singlePost");
+// });
 
-/* GET profileEdit TEST page */
-router.get("/profileEdit", (req, res, next) => {
-  res.render("profileEdit");
-  // Post.findById(req.params.idPost)
-  // .populate("username")
-  // .then (result => {
-  //     const data = {post: result}
-  //     res.render("singlePost", data);
-  // })
-  // .catch(err => {
-  //     console.log("error: ", err);
-  // })
-});
+// /* GET profileEdit TEST page */
+// router.get("/profileEdit", (req, res, next) => {
+//   res.render("profileEdit");
+//   // Post.findById(req.params.idPost)
+//   // .populate("username")
+//   // .then (result => {
+//   //     const data = {post: result}
+//   //     res.render("singlePost", data);
+//   // })
+//   // .catch(err => {
+//   //     console.log("error: ", err);
+//   // })
+// });
 
 module.exports = router;
