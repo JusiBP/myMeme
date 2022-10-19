@@ -21,6 +21,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    imageUser: {
+      type: String,
+      default: "../public/images/profileuser.jpeg" //falta mirar bien con cloudinary
+    }
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

@@ -1,7 +1,7 @@
 {{!-- <p class="text-white">hola {{username}}</p> --}}
 
 {{!-- CONJUNTO COMPLETO DE NAVEGADOR --}}
- <nav class="navbar navbar-expand-lg bg-light bg-mymeme"> 
+<nav class="navbar navbar-expand-lg bg-light bg-mymeme"> 
     {{!-- Contenedor "div" con tres hijos "div"--}}
 <div class="container-fluid">
     
@@ -41,16 +41,23 @@
 
     {{!-- myMEME LOGO --}}
     <div class="col">
-        {{!-- <a class="navbar-brand position-absolute top-50 start-50 translate-middle float-right" href="/"><img class="logo" src="../images/myMeme_LOGO.png" alt="myMeme_Logo"></a> --}}
+        <a class="navbar-brand position-absolute top-50 start-50 translate-middle float-right" href="/"><img class="logo" src="../images/myMeme_LOGO.png" alt="myMeme_Logo"></a>
     </div>
    
-    {{!-- Login / Sign in --}}
-     
+    {{!-- Create new post / User Image (goes to profile) / Log out --}}
     <div class="col">
-        <a href="/{{idUser}}"><img src="/images/userImage.png" alt="userImage" class="img-fluid" width="10%"> </a>
-        <div class="col">
-        <a href="/634fbf919c86e2fd843fd67b/createpost"><img src="/images/userImage.png" alt="userImage" class="img-fluid" width="20%"> </a>
-    </div>  
+        
+        <div class="container-fluid column text-end">
+            <div>
+                <a href="/{{_id}}"><img src="/images/userImage.png" alt="userImage" class="img-fluid" width="15%"> </a>
+            </div>
+            <div>
+                <a href="/logout" class="card-link m-0 p-0 text-white">Log out</a>
+            </div>
+            <div>
+            <a href="/{{_id}}/createpost" class="card-link m-0 p-0"><img src="/images/newcreatepost.png" alt="Create new post" width="8%"></a>
+            </div>
+        </div>
     </div>  
 </div>
 </nav>

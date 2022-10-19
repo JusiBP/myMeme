@@ -27,8 +27,8 @@ router.get("/", (req, res, next) => {
         return newObject;
       });
       if (req.session.currentUser) {
-        const { username } = req.session.currentUser;
-        res.render("index", { username, post: postsModified });
+        const { username, _id, imageUser } = req.session.currentUser;
+        res.render("index", { username, _id, imageUser, post: postsModified });
       } else {
         res.render("index", { post: postsModified });
       }

@@ -56,7 +56,6 @@ router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
       const data = {
         post: post,
       };
-      console.log("Hola des de crearPost (POST): ", data);
       res.render("singlePost", data);
     })
     .catch((error) => next(error));
