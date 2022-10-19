@@ -38,7 +38,7 @@ router.get("/", (req, res, next) => {
   })
 });
 
-//SIN DATA SHORTED
+//SIN DATA SHORTEDgit 
 // router.get("/", (req, res, next) => {
 //   Post.find().then((posts) => {
     
