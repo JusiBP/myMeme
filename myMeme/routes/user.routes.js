@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const mongoose = require("mongoose");
 const multer = require("multer");
-
+const fileUploader = require("../config/cloudinary.config");
 const uploader = multer({
-    dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
-    limits: {
-      fileSize: 2000000,
-    },
-  });
+  dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
+  limits: {
+    fileSize: 2000000,
+  },
+});
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
@@ -18,25 +18,22 @@ const Post = require("../models/Post.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-
-
 // RUTA GET UserProfile
 router.get("/", (req, res, next) => {
-    const idUser = req.params.idUser;
-    Post.find({userInfo: idUser})
-    .populate ("userInfo")
-    .then(postsUser => {
-        console.log("Hola desde UserProfile: ", postsUser)
-        if (req.session.currentUser) {
-            const {username} = req.session.currentUser
-            res.render("profile", {username: username , postsUser});
-            }
-          else {
-            res.render("profile", {postsUser});
-          }
+  const idUser = req.params.idUser;
+  Post.find({ userInfo: idUser })
+    .populate("userInfo")
+    .then((postsUser) => {
+      console.log("Hola desde UserProfile: ", postsUser);
+      if (req.session.currentUser) {
+        const { username } = req.session.currentUser;
+        res.render("profile", { username: username, postsUser });
+      } else {
+        res.render("profile", { postsUser });
+      }
     })
     .catch((error) => next(error));
-  });
+});
 
 // RUTA GET CREAR POST
 router.get("/createpost", (req, res, next) => {
@@ -46,10 +43,15 @@ router.get("/createpost", (req, res, next) => {
 });
 
 // RUTA POST CREAR POST
-router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
+router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
   console.log("hola desde crear POST: ", req.body);
-  const {category, description} = req.body
-  Post.create({ userInfo: req.params.idUser ,category, description, memeUrl: "/uploaded/" + req.file.filename })
+  const { category, description } = req.body;
+  Post.create({
+    userInfo: req.params.idUser,
+    category,
+    description,
+    memeUrl: req.file.path,
+  })
     .then((post) => {
       const data = {
         post: post,
@@ -62,8 +64,8 @@ router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
 
 // /* GET profileEdit TEST page */
 router.get("/profileEdit", (req, res, next) => {
-    res.render("profileEdit");
-  });
+  res.render("profileEdit");
+});
 
 // RUTA GET EDITAR POST
 router.get("/:idPost/postEdit", (req, res, next) => {
@@ -80,7 +82,11 @@ router.post("/:idPost/postEdit", (req, res, next) => {
   const { memeUrl, description, category } = req.body;
   const { idUser } = req.params;
 
-  Post.findByIdAndUpdate(idPost,{ memeUrl, description, category },{ new: true })
+  Post.findByIdAndUpdate(
+    idPost,
+    { memeUrl, description, category },
+    { new: true }
+  )
 
     .then((updatedPost) => {
       res.redirect(`/${idUser}/${updatedPost.id}`);
@@ -104,7 +110,7 @@ router.get("/:idPost", (req, res, next) => {
   Post.findById(req.params.idPost)
     .populate("userInfo")
     .then((result) => {
-        console.log("hola desde SINGLEPOST:", result)
+      console.log("hola desde SINGLEPOST:", result);
       const data = { post: result };
       res.render("singlePost", data);
     })
