@@ -1,3 +1,8 @@
+{{#if username}}
+    {{> headerLoggedUser}}
+{{else}}
+    {{> header}}
+{{/if}}
 
 <div class="divisor "></div>
 {{!-- CARDS --}}
@@ -16,79 +21,16 @@
     <div class="row justify-content-center ">
          {{#each post}}
         <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
-            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">{{this.username}}</a>
-            <a href="/{{idUser}}/{{this._id}}"><img src="{{this.memeUrl}}" class="card-img-top" alt="userPic"></a>
+            <a href="/{{this.userInfo._id}}" class="btn btn-light text-mymeme btn-sm mb-2">{{this.userInfo.username}}</a>
+            <a href="/{{this.userInfo._id}}/{{this._id}}"><img src="{{this.memeUrl}}" class="card-img-top" alt="userPic"></a>
             <div class="card-body">
                 <h5 class="text-white">{{this.date}}</h5>
                 <p class="card-text text-white">{{this.description}}</p>
+                <p class="card-text text-mymeme">{{this.category}}</p>
             </div>
         </div>
          {{/each}}
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-{{!-- <div class="row justify-content-center ">
-        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
-            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
-            <a href="/singlePostTest"><img src="images/meme_ex3.jpeg" class="card-img-top" alt="userPic"></a>
-            <div class="card-body">
-                <h5 class="text-white">00/00/2023</h5>
-                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
-            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
-            <img src="images/meme_ex.jpeg" class="card-img-top" alt="meme">
-            <div class="card-body">
-                <h5 class="text-white">00/00/2023</h5>
-                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
-            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
-            <img src="images/meme_ex2.jpeg" class="card-img-top" alt="meme">
-            <div class="card-body">
-                <h5 class="text-white">00/00/2023</h5>
-                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
-            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
-            <img src="images/meme_ex3.jpeg" class="card-img-top" alt="meme">
-            <div class="card-body">
-                <h5 class="text-white">00/00/2023</h5>
-                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
-            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
-            <img src="images/meme_ex2.jpeg" class="card-img-top" alt="meme">
-            <div class="card-body">
-                <h5 class="text-white">00/00/2023</h5>
-                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 card posts-mymeme cardColorMyMeme" style="width: 18rem;">
-            <a href="#" class="btn btn-light text-mymeme btn-sm mb-2">userName</a>
-            <img action="/:idUser/:idPost" src="images/meme_ex.jpeg" class="card-img-top" alt="meme">
-            <div class="card-body">
-                <h5 class="text-white">00/00/2023</h5>
-                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-    </div> --}}
-
-
-
+{{> footer}}
