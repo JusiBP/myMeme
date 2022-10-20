@@ -8,8 +8,11 @@
         {{/if}}
         <div class="blockColor singlePostUser">
             <a href="/{{userInfo._id}}" class="text-mymemeUser">{{userInfo.username}}</a>
+            {{#if sameUser}}
+            <a href="/{{userInfo._id}}/{{_id}}/postEdit"><img class="editPencil" src="/images/edit_icon.png" alt="edit icon"></a>
+            {{/if}}
         </div>
-        <hr></hr>
+        </div>
         <div class="blockColor">
             <img src={{memeUrl}} class="img-fluid singlePostImg" alt="meme">
         </div>

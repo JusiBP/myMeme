@@ -1,6 +1,8 @@
 body {
   padding: 0px;
   margin: 0px;
+  margin-top: 15vh;
+  margin-bottom: 20vh;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #131313;
 }
@@ -33,7 +35,6 @@ h1 {
   width: 40vw;
   max-width: 230px;
   min-width: 160px;
-
 }
 
 .divisor {
@@ -59,15 +60,18 @@ h1 {
   color: #1e226a;
   text-decoration: none;
   height: 7vh;
-  text-align: center;
   padding-top: 10px;
   font-size: x-large;
+  text-align: right;
 }
 
 .singlePostImg {
   width: 85vw;
   display: block;
   margin: auto;
+  max-width: 700px;
+  min-width: 350px;
+  border-radius: 5px;
 }
 
 .singlePostInfo {
@@ -76,22 +80,19 @@ h1 {
   text-align: center;
   padding: 15px;
   font-size: medium;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin: auto;
 }
-.singlePostDate {
-  margin-top: 20px;
-  color: white;
-  text-decoration: none;
-  text-align: center;
-  font-size: small;
+
+.editPencil {
+  max-width: 25px;
 }
 
 .postBox {
   background: linear-gradient(0deg, rgba(49,52,110,1) 23%, rgba(112,142,191,1) 100%);
-  margin: 20px;
   border-radius: 20px;
-  
+  max-width: 730px;
+  margin: auto;
+  margin-top: 20vh;
 }
 
 .backgroundColorMyMeme {
@@ -100,12 +101,17 @@ h1 {
   padding: 20px;
 }
 
-.formsDiv {
-  padding-top: 6%;
+.bgProfileCard {
+  min-width: 280px;
+  max-width: 410px;
   margin: auto;
-  width: 60vw;
-  max-width: 570px;
-  
+}
+
+.formProfileEdit {
+  min-width: 200px;
+  max-width: 300px;
+  text-align: center;
+  margin: auto;
 }
 
 .editPicUser {
@@ -113,11 +119,32 @@ h1 {
   display: block;
   margin: auto;
   padding: 20px;
-  max-width: 370px;
+  min-width: 240px;
+  max-width: 300px;
 }
+
+.formsDiv {
+  padding-top: 2%;
+  margin: auto;
+  width: 60vw;
+  max-width: 570px;
+}
+
 .editTitle {
   text-align: center;
 }
+
+.headerFixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.imageUser {
+  min-width: 40px;
+}
+
 .header2 {
   height: 8vh;
   padding: 15px;
@@ -129,3 +156,5 @@ h1 {
   width: 100vw;
   color: rgba(113,119,242,1);
 }
+
+
