@@ -1,39 +1,51 @@
 const express = require("express");
 const Post = require("../models/Post.model");
 const router = express.Router();
+const dateFunction = require ("../utils/date.function.js")
 
 /* GET home page */
+// router.get("/", (req, res, next) => {
+//   Post.find()
+//   .populate("userInfo")
+//   .then(post => {
+//     let dateString = "";
+//     const postsModified = post.map((post1) => {
+//       dateString =
+//         post1.date.getDate() +
+//         "/" +
+//         post1.date.getMonth() +
+//         "/" +
+//         post1.date.getFullYear();
+//       let newObject = {
+//         _id: post1._id,
+//         userId: post1.userInfo._id,
+//         username: post1.userInfo.username,
+//         memeUrl: post1.memeUrl,
+//         category: post1.category,
+//         description: post1.description,
+//         date: dateString,
+//       };
+//       return newObject;
+//     });
+//     if (req.session.currentUser) {
+//       const {username} = req.session.currentUser
+//       res.render("index", {username, post: postsModified});
+//       }
+//     else {
+//       res.render("index", {post: postsModified});
+//     }
+//   })
+// });
+
+// RUTA GET --> Home Page
 router.get("/", (req, res, next) => {
   Post.find()
   .populate("userInfo")
   .then(post => {
-    let dateString = "";
-    const postsModified = post.map((post1) => {
-      dateString =
-        post1.date.getDate() +
-        "/" +
-        post1.date.getMonth() +
-        "/" +
-        post1.date.getFullYear();
-      let newObject = {
-        _id: post1._id,
-        userId: post1.userInfo._id,
-        username: post1.userInfo.username,
-        memeUrl: post1.memeUrl,
-        category: post1.category,
-        description: post1.description,
-        date: dateString,
-      };
-      return newObject;
-    });
-    if (req.session.currentUser) {
-      const {username} = req.session.currentUser
-      res.render("index", {username, post: postsModified});
-      }
-    else {
-      res.render("index", {post: postsModified});
-    }
+      let dataViews = dateFunction(post, req.session.currentUser);
+      res.render("index", dataViews);
   })
+  .catch((error) => next(error));
 });
 
 //SIN DATA SHORTEDgit 
