@@ -1,14 +1,8 @@
-{{#if username}}
-    {{> headerLoggedUser}}
-{{else}}
-    {{> header}}
-{{/if}}
-
 <div class="postBox">
 <div class="container-fluid">
     <div class="row">
         <div class="blockColor singlePostUser">
-            <a href="/:idUser" class="text-mymemeUser">{{post.username}}</a>
+            <a href="/{{post.userInfo.username}}" class="text-mymemeUser">{{post.userInfo.username}}</a>
         </div>
         <hr></hr>
         <div class="blockColor">
@@ -22,4 +16,3 @@
 </div>
 </div>
 
-{{> footer}}

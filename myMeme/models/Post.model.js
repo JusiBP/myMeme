@@ -11,7 +11,10 @@ const postSchema = new Schema({
   },
   date: {
     type: Date,
-    default: new Date,
+    default: new Date(),
+  },
+  dateString: {
+    type: String,
   },
   description: {
     type: String,
@@ -20,6 +23,7 @@ const postSchema = new Schema({
   category: {
     type: String,
     enum: [
+      "All",
       "Random",
       "Animals",
       "WTF",
@@ -29,7 +33,7 @@ const postSchema = new Schema({
       "News",
       "Anime&Manga",
       "Classics",
-      "TV"
+      "TV",
     ],
   },
   // this second object adds extra properties: `createdAt` and `updatedAt`

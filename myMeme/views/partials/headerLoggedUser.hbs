@@ -1,3 +1,5 @@
+{{!-- <p class="text-white">hola {{username}}</p> --}}
+
 {{!-- CONJUNTO COMPLETO DE NAVEGADOR --}}
 <nav class="navbar navbar-expand-lg bg-light bg-mymeme"> 
     {{!-- Contenedor "div" con tres hijos "div"--}}
@@ -8,6 +10,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item mt-2">
@@ -16,14 +19,17 @@
                 <li class="nav-item dropdown mt-2">
                     <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                     <ul class="dropdown-menu bg-mymeme">
-                        <li><a class="dropdown-item text-white" href="#">Random</a></li>
-                        <li><a class="dropdown-item text-white" href="#">Animals</a></li>
-                        <li><a class="dropdown-item text-white" href="#">WTF</a></li>
-                        <li><a class="dropdown-item text-white" href="#">Anime &#38 Manga</a></li>
-                        <li><a class="dropdown-item text-white" href="#">Sports</a></li>
-                        <li><a class="dropdown-item text-white" href="#">Gaming</a></li>
-                        <li><a class="dropdown-item text-white" href="#">News</a></li>
-                        <li><a class="dropdown-item text-white" href="#">Politics</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/All">All</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/Random">Random</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/Animals">Animals</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/WTF">WTF</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/Anime-Manga">Anime &#38 Manga</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/Sports">Sports</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/Gaming">Gaming</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/News">News</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/Politics">Politics</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/TV">TV</a></li>
+                        <li><a class="dropdown-item text-white" href="/category/Classics">Classics</a></li>
                     </ul>
                 </li>
                 <li class="nav-item mt-2">
@@ -35,7 +41,7 @@
 
     {{!-- myMEME LOGO --}}
     <div class="col">
-        <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="/"><img class="logo" src="../images/myMeme_LOGO.png" alt="myMeme_Logo"></a>
+        <a class="navbar-brand position-absolute top-50 start-50 translate-middle float-right" href="/"><img class="logo" src="../images/myMeme_LOGO.png" alt="myMeme_Logo"></a>
     </div>
    
     {{!-- Create new post / User Image (goes to profile) / Log out --}}
@@ -53,3 +59,5 @@
     </div>  
 </div>
 </nav>
+{{!-- <p>Current User id: {{_id}}</p>
+<p>Current User Name: {{username}}</p> --}}
