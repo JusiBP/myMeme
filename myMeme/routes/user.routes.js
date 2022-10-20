@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const mongoose = require("mongoose");
+const fileUploader = require("../config/cloudinary.config")
 const multer = require("multer");
-
 const uploader = multer({
     dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
     limits: {
@@ -38,7 +38,7 @@ router.get("/", (req, res, next) => {
   });
 
 // RUTA GET CREAR POST
-router.get("/createpost", (req, res, next) => {
+router.get("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
   const idUser = req.params.idUser;
   res.render("createPost", { idUser });
 });
@@ -47,7 +47,7 @@ router.get("/createpost", (req, res, next) => {
 router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
   console.log("hola desde crear POST: ", req.body);
   const {category, description} = req.body
-  Post.create({ userInfo: req.params.idUser ,category, description, memeUrl: "/uploaded/" + req.file.filename })
+  Post.create({ userInfo: req.params.idUser ,category, description, memeUrl: req.file.path })
     .then((post) => {
       const data = {
         post: post,
