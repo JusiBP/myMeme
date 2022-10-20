@@ -122,3 +122,10 @@ h1 {
   height: 8vh;
   padding: 15px;
 }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  color: rgba(113,119,242,1);
+}

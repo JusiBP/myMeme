@@ -33,7 +33,7 @@
                     </ul>
                 </li>
                 <li class="nav-item mt-2">
-                    <a class="nav-link active text-white" aria-current="page" href="#">About Us</a>
+                    <a class="nav-link active text-white" aria-current="page" href="/aboutUs">About Us</a>
                 </li>
             </ul>
         </div>
@@ -41,7 +41,7 @@
 
     {{!-- myMEME LOGO --}}
     <div class="col">
-        <a class="navbar-brand position-absolute top-50 start-50 translate-middle float-right" href="/"><img class="logo" src="../images/myMeme_LOGO.png" alt="myMeme_Logo"></a>
+        <a class="navbar-brand position-absolute top-50 start-50 translate-middle float-right" href="/"><img class="logo" src="/images/myMeme_LOGO.png" alt="myMeme_Logo"></a>
     </div>
    
     {{!-- Create new post / User Image (goes to profile) / Log out --}}
@@ -49,9 +49,9 @@
         
         <div class="container-fluid column text-end">
             
-            <a href="/{{_id}}/createpost" class="card-link m-0 p-0"><img src="/images/newcreatepost.png" alt="Create new post" width="8%"></a>
+            <a href="/{{_id}}/createpost" class="card-link m-0 p-0"><img src="/images/newcreatepost.png" alt="Create new post" width="7%"></a>
             
-            <a href="/{{_id}}"><img src="{{imageUser}}" alt="userImage" class="img-fluid" width="15%"> </a>
+            <a href="/{{_id}}"><img src="{{imageUser}}" alt="userImage" class="img-fluid rounded-circle" width="15%"> </a>
             <div>
                 <a href="/logout" class="card-link m-0 p-0 text-white">Log out</a>
             </div>
@@ -59,3 +59,5 @@
     </div>  
 </div>
 </nav>
+{{!-- <p>Current User id: {{_id}}</p>
+<p>Current User Name: {{username}}</p> --}}

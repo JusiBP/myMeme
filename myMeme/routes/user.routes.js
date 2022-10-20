@@ -3,6 +3,8 @@ const router = express.Router({ mergeParams: true });
 const mongoose = require("mongoose");
 const fileUploader = require("../config/cloudinary.config");
 const multer = require("multer");
+const dateFunction = require("../utils/date.function.js");
+
 const uploader = multer({
   dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
   limits: {
@@ -18,32 +20,30 @@ const Post = require("../models/Post.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-// RUTA GET UserProfile
+// RUTA GET --> User Profile
 router.get("/", (req, res, next) => {
   const idUser = req.params.idUser;
   Post.find({ userInfo: idUser })
     .populate("userInfo")
-    .then((postsUser) => {
-      console.log("Hola desde UserProfile: ", postsUser);
-      if (req.session.currentUser) {
-        const { username } = req.session.currentUser;
-        res.render("profile", { username: username, postsUser });
-      } else {
-        res.render("profile", { postsUser });
-      }
+    .then((post) => {
+      let dataViews = dateFunction(post, req.session.currentUser);
+      res.render("index", dataViews);
     })
     .catch((error) => next(error));
 });
 
-// RUTA GET CREAR POST
+// RUTA GET --> Crear Post
 router.get("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
-  const idUser = req.params.idUser;
-  res.render("createPost", { idUser });
+  if (req.session.currentUser) {
+    const { username, _id, imageUser } = req.session.currentUser;
+    res.render("createPost", { username, _id, imageUser });
+  } else {
+    res.redirect("/");
+  }
 });
 
-// RUTA POST CREAR POST
+// RUTA POST --> Crear Post
 router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
-  console.log("hola desde crear POST: ", req.body);
   const { category, description } = req.body;
   Post.create({
     userInfo: req.params.idUser,
@@ -55,30 +55,60 @@ router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
       const data = {
         post: post,
       };
-      res.render("singlePost", data);
+      if (req.session.currentUser) {
+        console.log("EN RUTA CREAR POST: ", post);
+        // res.render("singlePost", {username, _id, imageUser, data});
+        res.redirect(`/${post.userInfo}/${post._id}`);
+      } else {
+        res.redirect("/");
+      }
     })
     .catch((error) => next(error));
 });
 
-// /* GET profileEdit TEST page */
+// RUTA GET --> Profile Edit (TEST page)
 router.get("/profileEdit", (req, res, next) => {
   res.render("profileEdit");
 });
 
+// // RUTA GET EDITAR POST
+// router.get("/:idPost/postEdit", (req, res, next) => {
+//   Post.findById(req.params.idPost)
+//     .then((postToEdit) => {
+//       res.render("user/post-edit", { post: postToEdit });
+//     })
+//     .catch((error) => next(error));
+// });
+
+// // RUTA POST EDITAR POST
+// router.post("/:idPost/postEdit", (req, res, next) => {
+//   const { idPost } = req.params;
+//   const { memeUrl, description, category } = req.body;
+//   const { idUser } = req.params;
+
+//   Post.findByIdAndUpdate(idPost,{ memeUrl, description, category },{ new: true })
+
+//     .then((updatedPost) => {
+//       res.redirect(`/${idUser}/${updatedPost.id}`);
+//     })
+//     .catch((error) => next(error));
+// });
+
 // RUTA GET EDITAR POST
 router.get("/:idPost/postEdit", (req, res, next) => {
+  const { idUser } = req.params;
+  const { idPost } = req.params;
   Post.findById(req.params.idPost)
     .then((postToEdit) => {
-      res.render("user/post-edit", { post: postToEdit });
+      res.render("user/post-edit", { idUser, idPost, post: postToEdit });
     })
     .catch((error) => next(error));
 });
-
 // RUTA POST EDITAR POST
 router.post("/:idPost/postEdit", (req, res, next) => {
+  const { idUser } = req.params;
   const { idPost } = req.params;
   const { memeUrl, description, category } = req.body;
-  const { idUser } = req.params;
 
   Post.findByIdAndUpdate(
     idPost,
@@ -87,6 +117,7 @@ router.post("/:idPost/postEdit", (req, res, next) => {
   )
 
     .then((updatedPost) => {
+      console.log("hola desde UPDATE POST: ", updatedPost);
       res.redirect(`/${idUser}/${updatedPost.id}`);
     })
     .catch((error) => next(error));
