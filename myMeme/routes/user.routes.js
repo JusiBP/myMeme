@@ -113,12 +113,33 @@ router.get("/:idPost", (req, res, next) => {
       res.render("singlePost", {
         post: result,
         idPost: req.params.idPost,
+        idUser: req.params.idUser,
+        likesCount: result.likes.length,
       });
     })
     .catch((err) => {
       console.log("error: ", err);
     });
 });
+
+router.post("/:idPost", (req, res, next) => {
+  Post.findById(req.params.idPost).then((result) => {
+    let alreadyLiked = false;
+    result.likes.forEach((userLike) => {
+      result.likes.forEach((userLike2) => {
+        if (userLike == userLike2) alreadyLiked = true;
+      });
+    });
+    if (alreadyLiked) result.likes.remove(req.params.idUser);
+    else {
+      result.likes.push(req.params.idUser);
+    }
+
+    result.save();
+    res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
+  });
+});
+
 router.get("/", (req, res, next) => {
   res.render("userProfile");
 });
