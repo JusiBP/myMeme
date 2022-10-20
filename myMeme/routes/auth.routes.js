@@ -16,46 +16,48 @@ const Post = require("../models/Post.model");
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
-
 // Require cloudinary and multer
-const fileUploader = require("../config/cloudinary.config")
+const fileUploader = require("../config/cloudinary.config");
 const multer = require("multer");
 const uploader = multer({
   dest: "./public/uploaded",
   limits: {
     fileSize: 2000000,
-  }
+  },
 });
-
 // GET /auth/signin
 router.get("/signin", isLoggedOut, (req, res) => {
   res.render("auth/signin");
 });
 
 // POST /auth/signin
-router.post("/signin", isLoggedOut, fileUploader.single("imageUser"), (req, res, next) => {
-  const { username, email, password } = req.body;
+router.post(
+  "/signin",
+  isLoggedOut,
+  fileUploader.single("imageUser"),
+  (req, res, next) => {
+    const { username, email, password } = req.body;
 
-  // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
-    res.status(400).render("auth/signin", {
-      errorMessage:
-        "All fields are mandatory. Please provide your username, email and password.",
-    });
+    // Check that username, email, and password are provided
+    if (username === "" || email === "" || password === "") {
+      res.status(400).render("auth/signin", {
+        errorMessage:
+          "All fields are mandatory. Please provide your username, email and password.",
+      });
 
-    return;
-  }
+      return;
+    }
 
-  if (password.length < 6) {
-    res.status(400).render("auth/signin", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
-    });
+    if (password.length < 6) {
+      res.status(400).render("auth/signin", {
+        errorMessage: "Your password needs to be at least 6 characters long.",
+      });
 
-    return;
-  }
+      return;
+    }
 
-  //   ! This regular expression checks password for special characters and minimum length
-  /*
+    //   ! This regular expression checks password for special characters and minimum length
+    /*
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
     res
@@ -67,33 +69,36 @@ router.post("/signin", isLoggedOut, fileUploader.single("imageUser"), (req, res,
   }
   */
 
-  // Create a new user - start by hashing the password
-  bcrypt
-    .genSalt(saltRounds)
-    .then((salt) => bcrypt.hash(password, salt))
-    .then((hashedPassword) => {
-      // Create a user and save it in the database
-      let newUser = { username, email, password: hashedPassword }
-      if (req.file) newUser.imageUser = req.file.path;
-      return User.create(newUser);
-    })
-    .then((user) => {
-      req.session.currentUser = user
-      res.redirect("/");
-    })
-    .catch((error) => {
-      if (error instanceof mongoose.Error.ValidationError) {
-        res.status(500).render("auth/signin", { errorMessage: error.message });
-      } else if (error.code === 11000) {
-        res.status(500).render("auth/signin", {
-          errorMessage:
-            "Username and email need to be unique. Provide a valid username or email.",
-        })
-      } else {
-        next(error);
-      }
-    });
-});
+    // Create a new user - start by hashing the password
+    bcrypt
+      .genSalt(saltRounds)
+      .then((salt) => bcrypt.hash(password, salt))
+      .then((hashedPassword) => {
+        // Create a user and save it in the database
+        let newUser = { username, email, password: hashedPassword };
+        if (req.file) newUser.imageUser = req.file.path;
+        return User.create(newUser);
+      })
+      .then((user) => {
+        req.session.currentUser = user;
+        res.redirect("/");
+      })
+      .catch((error) => {
+        if (error instanceof mongoose.Error.ValidationError) {
+          res
+            .status(500)
+            .render("auth/signin", { errorMessage: error.message });
+        } else if (error.code === 11000) {
+          res.status(500).render("auth/signin", {
+            errorMessage:
+              "Username and email need to be unique. Provide a valid username or email.",
+          });
+        } else {
+          next(error);
+        }
+      });
+  }
+);
 
 // GET /auth/login
 router.get("/login", isLoggedOut, (req, res) => {
