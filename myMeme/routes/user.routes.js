@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const mongoose = require("mongoose");
+const fileUploader = require("../config/cloudinary.config")
 const multer = require("multer");
 const dateFunction = require ("../utils/date.function.js")
 
 const uploader = multer({
-    dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
-    limits: {
-      fileSize: 2000000,
-    },
-  });
+  dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
+  limits: {
+    fileSize: 2000000,
+  },
+});
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
@@ -31,10 +32,10 @@ router.get("/", (req, res, next) => {
       res.render("index", dataViews);
     })
     .catch((error) => next(error));
-  });
+});
 
 // RUTA GET --> Crear Post
-router.get("/createpost", (req, res, next) => {
+router.get("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
   if (req.session.currentUser) {
     const {username, _id, imageUser} = req.session.currentUser
     res.render("createPost", {username, _id, imageUser});
@@ -45,9 +46,9 @@ router.get("/createpost", (req, res, next) => {
 });
 
 // RUTA POST --> Crear Post
-router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
+router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
   const {category, description} = req.body
-  Post.create({ userInfo: req.params.idUser ,category, description, memeUrl: "/uploaded/" + req.file.filename })
+  Post.create({ userInfo: req.params.idUser ,category, description, memeUrl: req.file.path })
     .then((post) => {
       const data = {
         post: post,
@@ -66,8 +67,8 @@ router.post("/createpost", uploader.single("memeUrl"), (req, res, next) => {
 
 // RUTA GET --> Profile Edit (TEST page)
 router.get("/profileEdit", (req, res, next) => {
-    res.render("profileEdit");
-  });
+  res.render("profileEdit");
+});
 
 // // RUTA GET EDITAR POST
 // router.get("/:idPost/postEdit", (req, res, next) => {
@@ -107,9 +108,13 @@ router.post("/:idPost/postEdit", (req, res, next) => {
   const { idUser } = req.params;
   const { idPost } = req.params;
   const { memeUrl, description, category } = req.body;
-  console.log("hola desde UPDATE POST: ", req.body)
-  
-  Post.findByIdAndUpdate(idPost,{ memeUrl, description, category },{ new: true })
+
+  Post.findByIdAndUpdate(
+    idPost,
+    { memeUrl, description, category },
+    { new: true }
+  )
+
     .then((updatedPost) => {
       console.log("hola desde UPDATE POST: ", updatedPost)
       res.redirect(`/${idUser}/${updatedPost.id}`);
@@ -141,6 +146,9 @@ router.get("/:idPost", (req, res, next) => {
     .catch((err) => {
       console.log("error: ", err);
     });
+});
+router.get("/", (req, res, next) => {
+  res.render("userProfile");
 });
 
 module.exports = router;

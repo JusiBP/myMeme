@@ -23,25 +23,6 @@ router.get("/:category", (req, res, next) => {
         })
     }
 });
-
-
-
-// /* GET Category */
-// router.get("/WTF", (req, res, next) => {
-//     console.log ("EN RUTA!")
-//     Post.find({category:"WTF"})
-//     .then(post => {
-//       console.log("hola desde category WTF posts: ",post)
-//     //   post.category = "WTF"
-//       if (req.session.currentUser) {
-//         const {username} = req.session.currentUser
-//         res.render("index", {username: username, post});
-//         }
-//       else {
-//         res.render("index", {post});
-//       }
-//     })
-// });
   
 
 module.exports = router;
