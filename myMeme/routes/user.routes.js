@@ -44,6 +44,7 @@ router.get("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
 
 // RUTA POST --> Crear Post
 router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
+  console.log("hola desde crear POST: ", req.body);
   const { category, description } = req.body;
   Post.create({
     userInfo: req.params.idUser,
@@ -140,12 +141,19 @@ router.get("/:idPost", (req, res, next) => {
     .populate("userInfo")
     .then((result) => {
       console.log("hola desde SINGLEPOST:", result);
+      let alreadyLiked = false;
+      result.likes.forEach((userLike) => {
+        result.likes.forEach((userLike2) => {
+          if (userLike == userLike2) alreadyLiked = true;
+        });
+      });
 
       res.render("singlePost", {
         post: result,
         idPost: req.params.idPost,
         idUser: req.params.idUser,
         likesCount: result.likes.length,
+        alreadyLiked: alreadyLiked,
       });
     })
     .catch((err) => {
