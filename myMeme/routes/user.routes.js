@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const mongoose = require("mongoose");
-const fileUploader = require("../config/cloudinary.config")
+const fileUploader = require("../config/cloudinary.config");
 const multer = require("multer");
 const uploader = multer({
   dest: "./public/uploaded", //referència és arrel del projecte, no movie.routes.js
@@ -44,8 +44,13 @@ router.get("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
 // RUTA POST CREAR POST
 router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
   console.log("hola desde crear POST: ", req.body);
-  const {category, description} = req.body
-  Post.create({ userInfo: req.params.idUser ,category, description, memeUrl: req.file.path })
+  const { category, description } = req.body;
+  Post.create({
+    userInfo: req.params.idUser,
+    category,
+    description,
+    memeUrl: req.file.path,
+  })
     .then((post) => {
       const data = {
         post: post,
@@ -104,8 +109,11 @@ router.get("/:idPost", (req, res, next) => {
     .populate("userInfo")
     .then((result) => {
       console.log("hola desde SINGLEPOST:", result);
-      const data = { post: result };
-      res.render("singlePost", data);
+
+      res.render("singlePost", {
+        post: result,
+        idPost: req.params.idPost,
+      });
     })
     .catch((err) => {
       console.log("error: ", err);
