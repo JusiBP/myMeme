@@ -13,7 +13,6 @@ router.get("/:category", (req, res, next) => {
         .then(post => {
         let dataViews = dateFunction(post, req.session.currentUser);
         dataViews.category = req.params.category
-        console.log ("EN RUTA! dataViews:", dataViews )
         res.render("index", dataViews);
         })
     }

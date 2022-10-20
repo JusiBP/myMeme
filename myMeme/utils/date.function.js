@@ -12,7 +12,6 @@ function dateFunction(post, currentUser) {
           description: post1.description,
           date: dateString,
         };
-        console.log("hola desde DATEFUNCTION: ", newObject)
         return newObject;
       })
     if (currentUser) {

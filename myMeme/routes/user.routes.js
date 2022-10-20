@@ -54,8 +54,6 @@ router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
         post: post,
       };
       if (req.session.currentUser) {
-        console.log("EN RUTA CREAR POST: ", post)
-        // res.render("singlePost", {username, _id, imageUser, data});
         res.redirect(`/${post.userInfo}/${post._id}`)
       }
       else {
@@ -69,7 +67,6 @@ router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
 router.get("/profileEdit", (req, res, next) => {
   User.findById(req.params.idUser)
   .then (result => {
-    console.log("POFILE EDIT: ", result)
     const user = {
       username: result.username,
       _id: result._id,
@@ -80,15 +77,6 @@ router.get("/profileEdit", (req, res, next) => {
   })
   .catch((error) => next(error));
 });
-
-// // RUTA GET EDITAR POST
-// router.get("/:idPost/postEdit", (req, res, next) => {
-//   Post.findById(req.params.idPost)
-//     .then((postToEdit) => {
-//       res.render("user/post-edit", { post: postToEdit });
-//     })
-//     .catch((error) => next(error));
-// });
 
 // // RUTA POST EDITAR POST
 // router.post("/:idPost/postEdit", (req, res, next) => {
@@ -104,19 +92,28 @@ router.get("/profileEdit", (req, res, next) => {
 //     .catch((error) => next(error));
 // });
 
-// RUTA GET EDITAR POST
+// RUTA GET --> Editar Post
 router.get("/:idPost/postEdit", (req, res, next) => {
-  const { idUser } = req.params;
-  const { idPost } = req.params;
   Post.findById(req.params.idPost)
     .populate("userInfo")
-    .then((postToEdit) => {
-      res.render("user/post-edit", { idUser, idPost, post: postToEdit });
+    .then((result) => {
+      const data = { 
+        username: req.session.currentUser.username,
+        imageUser: req.session.currentUser.imageUser,
+        _id: result._id,
+        userInfo: result.userInfo,
+        memeUrl: result.memeUrl,
+        date: result.date,
+        description: result.description,
+        category: result.category
+       };
+      res.render("user/post-edit", data);
     })
     .catch((error) => next(error));
 });
 // RUTA POST EDITAR POST
 router.post("/:idPost/postEdit", (req, res, next) => {
+  console.log("hola desde UPDATE POST")
   const { idUser } = req.params;
   const { idPost } = req.params;
   const { memeUrl, description, category } = req.body;
@@ -126,10 +123,9 @@ router.post("/:idPost/postEdit", (req, res, next) => {
     { memeUrl, description, category },
     { new: true }
   )
-
     .then((updatedPost) => {
       console.log("hola desde UPDATE POST: ", updatedPost)
-      res.redirect(`/${idUser}/${updatedPost.id}`);
+      res.redirect(`/${idUser}/${updatedPost._id}`);
     })
     .catch((error) => next(error));
 });
@@ -165,7 +161,7 @@ router.get("/:idPost", (req, res, next) => {
       if ( data.username === data.userInfo.username){
         data.sameUser = "OK"
       }
-      console.log("hola desde SINGLEPOST:", data)
+      // console.log("hola desde SINGLEPOST:", data)
       res.render("singlePost", data);
     })
     .catch((err) => {
