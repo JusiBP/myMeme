@@ -2,15 +2,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="blockColor singlePostUser">
-            <a href="/{{post.userInfo.username}}" class="text-mymemeUser">{{post.userInfo.username}}</a>
+            <a href="/{{userInfo._id}}" class="text-mymemeUser">{{userInfo.username}}</a>
+            {{#if sameUser}}
+            <a href="/{{userInfo._id}}/{{_id}}/postEdit"><img class="editPencil" src="/images/edit_icon.png" alt="edit icon"></a>
+            {{/if}}
         </div>
-        <hr></hr>
         <div class="blockColor">
-            <img src={{post.memeUrl}} class="img-fluid singlePostImg" alt="meme">
+            <img src={{memeUrl}} class="img-fluid singlePostImg" alt="meme">
         </div>
         <div class="blockColor">
-            <h5 class="singlePostDate">{{post.date}}</h5>
-            <p class="singlePostInfo">{{post.description}}</p>
+            <p class="singlePostInfo">{{description}}</p>
         </div>
     </div>
 </div>

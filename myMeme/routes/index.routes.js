@@ -8,6 +8,9 @@ router.get("/", (req, res, next) => {
   Post.find()
   .populate("userInfo")
   .then(post => {
+      // post.sort(function(a, b){
+      //   return (a.date - b.date)
+      // })
       let dataViews = dateFunction(post, req.session.currentUser);
       res.render("index", dataViews);
   })

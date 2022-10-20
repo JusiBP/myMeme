@@ -66,8 +66,23 @@ router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
 });
 
 // RUTA GET --> Profile Edit (TEST page)
+// router.get("/profileEdit", (req, res, next) => {
+//   res.render("profileEdit");
+// });
+
+// RUTA GET --> Profile Edit (TEST page)
 router.get("/profileEdit", (req, res, next) => {
-  res.render("profileEdit");
+  User.findById(req.params.idUser)
+  .then (result => {
+    const user = {
+      username: result.username,
+      _id: result._id,
+      email: result.email,
+      imageUser: result.imageUser
+    }
+    res.render("profileEdit", user);
+  })
+  .catch((error) => next(error));
 });
 
 // // RUTA GET EDITAR POST
@@ -139,8 +154,20 @@ router.get("/:idPost", (req, res, next) => {
   Post.findById(req.params.idPost)
     .populate("userInfo")
     .then((result) => {
-      console.log("hola desde SINGLEPOST:", result)
-      const data = { post: result };
+      const data = { 
+        username: req.session.currentUser.username,
+        imageUser: req.session.currentUser.imageUser,
+        _id: result._id,
+        userInfo: result.userInfo,
+        memeUrl: result.memeUrl,
+        date: result.date,
+        description: result.description,
+        category: result.category
+       };
+      if ( data.username === data.userInfo.username){
+        data.sameUser = "OK"
+      }
+      // console.log("hola desde SINGLEPOST:", data)
       res.render("singlePost", data);
     })
     .catch((err) => {
