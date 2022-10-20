@@ -44,7 +44,7 @@ router.get("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
 
 // RUTA POST --> Crear Post
 router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
-  console.log("hola desde crear POST: ", req.body);
+  //console.log("hola desde crear POST: ", req.body);
   const { category, description } = req.body;
   Post.create({
     userInfo: req.params.idUser,
@@ -57,7 +57,7 @@ router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
         post: post,
       };
       if (req.session.currentUser) {
-        console.log("EN RUTA CREAR POST: ", post);
+        //console.log("EN RUTA CREAR POST: ", post);
         // res.render("singlePost", {username, _id, imageUser, data});
         res.redirect(`/${post.userInfo}/${post._id}`);
       } else {
@@ -118,7 +118,7 @@ router.post("/:idPost/postEdit", (req, res, next) => {
   )
 
     .then((updatedPost) => {
-      console.log("hola desde UPDATE POST: ", updatedPost);
+      //console.log("hola desde UPDATE POST: ", updatedPost);
       res.redirect(`/${idUser}/${updatedPost.id}`);
     })
     .catch((error) => next(error));
@@ -140,12 +140,10 @@ router.get("/:idPost", (req, res, next) => {
   Post.findById(req.params.idPost)
     .populate("userInfo")
     .then((result) => {
-      console.log("hola desde SINGLEPOST:", result);
+      //console.log("hola desde SINGLEPOST:", result);
       let alreadyLiked = false;
       result.likes.forEach((userLike) => {
-        result.likes.forEach((userLike2) => {
-          if (userLike == userLike2) alreadyLiked = true;
-        });
+        if (userLike == req.session.currentUser._id) alreadyLiked = true;
       });
 
       res.render("singlePost", {
@@ -162,21 +160,48 @@ router.get("/:idPost", (req, res, next) => {
 });
 
 router.post("/:idPost", (req, res, next) => {
-  Post.findById(req.params.idPost).then((result) => {
-    let alreadyLiked = false;
-    result.likes.forEach((userLike) => {
-      result.likes.forEach((userLike2) => {
-        if (userLike == userLike2) alreadyLiked = true;
-      });
-    });
-    if (alreadyLiked) result.likes.remove(req.params.idUser);
-    else {
-      result.likes.push(req.params.idUser);
-    }
+  // User.findById(req.session.currentUser._id).then((result) => {
+  //   let alreadyLikedUser = false;
+  //   result.likedPosts.forEach((likedPost) => {
+  //     result.likedPosts.forEach((likedPost2) => {
+  //       if (likedPost == likedPost2) alreadyLikedUser = true;
+  //     });
+  //   });
+  //   if (alreadyLikedUser) {
+  //     result.likedPosts.remove(req.params.idPost);
+  //     console.log("WAS ALREADY LIKED");
+  //   } else {
+  //     result.likedPosts.push(req.params.idPost);
+  //     console.log(
+  //       "Was not liked ----- WRITE THIS ID POST IN DB",
+  //       req.params.idPost
+  //     );
+  //   }
 
+  //   result.save();
+  // });
+
+  Post.findById(req.params.idPost).then((result) => {
+    console.log("CURRENT USER HERE :    --- >> ", req.session.currentUser._id);
+
+    console.log(
+      "CURRENT IDPOST HERE: ------------------->>>>>",
+      req.params.idPost
+    );
+    console.log("RESULT.LIKES ARRAY BEFORE CHANGES: ", result.likes);
+    let alreadyLiked = false;
+
+    result.likes.forEach((userLike) => {
+      if (userLike == req.session.currentUser._id) alreadyLiked = true;
+    });
+    if (alreadyLiked) result.likes.remove(req.session.currentUser._id);
+    else {
+      result.likes.push(req.session.currentUser._id);
+    }
+    console.log("RESULT AFTer cHanges, before save to DB : ", result.likes);
     result.save();
-    res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
   });
+  res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
 });
 
 router.get("/", (req, res, next) => {
