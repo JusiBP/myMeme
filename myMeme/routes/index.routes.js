@@ -88,4 +88,9 @@ router.get("/", (req, res, next) => {
 //   // })
 // });
 
+
+router.get("/aboutUs", (req, res, next)=>{
+  res.render("aboutUs");
+})
+
 module.exports = router;
