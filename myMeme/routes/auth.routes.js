@@ -17,13 +17,23 @@ const Post = require("../models/Post.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
+// Require cloudinary and multer
+const fileUploader = require("../config/cloudinary.config")
+const multer = require("multer");
+const uploader = multer({
+  dest: "./public/uploaded",
+  limits: {
+    fileSize: 2000000,
+  }
+});
+
 // GET /auth/signin
 router.get("/signin", isLoggedOut, (req, res) => {
   res.render("auth/signin");
 });
 
 // POST /auth/signin
-router.post("/signin", isLoggedOut, (req, res) => {
+router.post("/signin", isLoggedOut, fileUploader.single("imageUser"), (req, res, next) => {
   const { username, email, password } = req.body;
 
   // Check that username, email, and password are provided
@@ -63,7 +73,9 @@ router.post("/signin", isLoggedOut, (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username, email, password: hashedPassword, imageUser: "/uploaded/" + req.file.filename });
+      let newUser = { username, email, password: hashedPassword }
+      if (req.file) newUser.imageUser = req.file.path;
+      return User.create(newUser);
     })
     .then((user) => {
       req.session.currentUser = user
