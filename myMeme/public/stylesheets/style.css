@@ -60,9 +60,9 @@ h1 {
   color: #1e226a;
   text-decoration: none;
   height: 7vh;
-  text-align: center;
   padding-top: 10px;
   font-size: x-large;
+  text-align: right;
 }
 
 .singlePostImg {
@@ -80,8 +80,7 @@ h1 {
   text-align: center;
   padding: 15px;
   font-size: medium;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin: auto;
 }
 
 .editPencil {
