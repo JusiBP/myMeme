@@ -117,8 +117,8 @@ router.get("/:idPost/postEdit", (req, res, next) => {
 router.post("/:idPost/postEdit", (req, res, next) => {
   Post.findById(req.params.idPost)
     .then((post) => {
-      console.log("HOLA DESDE POST EDIT: DENTRO", post);
-      console.log("HOLA DESDE POST EDIT: DENTRO", req.body);
+      //console.log("HOLA DESDE POST EDIT: DENTRO", post);
+      // console.log("HOLA DESDE POST EDIT: DENTRO", req.body);
 
       // post.memeUrl = req.body.memeUrl;
       post.category = req.body.category;
@@ -173,15 +173,16 @@ router.get("/:idPost", (req, res, next) => {
       let alreadyLiked = false;
       let usernameTemp = "Anonim";
       let imageUserTemp = "";
-      result.likes.forEach((userLike) => {
-        if (req.session === !undefined) {
+      if (req.session.currentUser) {
+        result.likes.forEach((userLike) => {
           usernameTemp = req.session.currentUser.username;
           imageUserTemp = req.session.currentUser.imageUser;
           if (userLike == req.session.currentUser._id) {
             alreadyLiked = true;
           }
-        }
-      });
+        });
+      }
+      console.log("I LIKE IT ALREADYYYYYYYYYY ---- >> VAR: ", alreadyLiked);
       const data = {
         username: usernameTemp,
         imageUser: imageUserTemp,
@@ -230,20 +231,29 @@ router.post("/:idPost", (req, res, next) => {
 
   Post.findById(req.params.idPost).then((result) => {
     let alreadyLiked = false;
-    console.log(" RESULT TO SAVE : ", result);
-    if (true) {
+    //console.log(" RESULT TO SAVE : ", result);
+    if (req.session.currentUser) {
       result.likes.forEach((userLike) => {
         if (userLike == req.session.currentUser._id) alreadyLiked = true;
       });
-      if (alreadyLiked) result.likes.remove(req.session.currentUser._id);
-      else {
+      if (alreadyLiked) {
+        User.findById(req.session.currentUser._id).then((user) => {
+          user.likedPosts.remove(req.params.idPost);
+          user.save();
+        });
+        result.likes.remove(req.session.currentUser._id);
+      } else {
         result.likes.push(req.session.currentUser._id);
+        User.findById(req.session.currentUser._id).then((user) => {
+          user.likedPosts.push(req.params.idPost);
+          user.save();
+        });
       }
-      console.log(" RESULT TO SAVE : ", result);
+      //console.log(" RESULT TO SAVE : ", result);
       result.save();
+      res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
     }
   });
-  res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
 });
 
 router.get("/", (req, res, next) => {

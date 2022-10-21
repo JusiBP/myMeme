@@ -1,6 +1,15 @@
+const User = require("../models/User.model");
 function dateFunction(post, currentUser) {
   let dateString = "";
   let dataViews = 0;
+  let likedPostsTemp = [];
+  User.findById(currentUser._id).then((user) => {
+    console.log("LIKED POSTS IN DATEFUNC ", user.likedPosts);
+    likedPostsTemp = user.likedPosts;
+  });
+
+  console.log("LIKED POSTS FUERA ", likedPostsTemp);
+
   const postsModified = post.map((post1) => {
     dateString =
       post1.date.getDate() +
@@ -17,6 +26,7 @@ function dateFunction(post, currentUser) {
       description: post1.description,
       date: dateString,
       likes: post1.likes.length,
+      likedPosts: likedPostsTemp,
     };
     return newObject;
   });
