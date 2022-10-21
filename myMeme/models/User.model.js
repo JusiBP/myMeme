@@ -12,7 +12,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
-      match: [/^\S+@\S+.\S+$/, 'Please use a valid email address.'],
+      match: [/^\S+@\S+.\S+$/, "Please use a valid email address."],
       unique: true,
       trim: true,
       lowercase: true,
@@ -23,9 +23,11 @@ const userSchema = new Schema(
     },
     imageUser: {
       type: String,
-      default: "/images/profileuser.jpeg" 
-    }
+      default: "/images/profileuser.jpeg",
+    },
+    likedPosts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   },
+
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,

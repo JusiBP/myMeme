@@ -1,22 +1,39 @@
 <div class="postBox">
 <div class="container-fluid">
     <div class="row">
-        {{#if sameUser}}
-        <div>
-            <a href="/{{userInfo._id}}/{{_id}}/postEdit"><img src="/images/edit_icon.png" alt=""></a>
-        </div>
-        {{/if}}
         <div class="blockColor singlePostUser">
             <a href="/{{userInfo._id}}" class="text-mymemeUser">{{userInfo.username}}</a>
+            {{#if sameUser}}
+            <a href="/{{userInfo._id}}/{{_id}}/postEdit"><img class="editPencil" src="/images/edit_icon.png" alt="edit icon"></a>
+            {{/if}}
         </div>
-        <hr></hr>
+        </div>
         <div class="blockColor">
             <img src={{memeUrl}} class="img-fluid singlePostImg" alt="meme">
         </div>
         <div class="blockColor">
             <p class="singlePostInfo">{{description}}</p>
         </div>
+        <div class="likesDiv">
+            <div class="likesCount">
+                <p>{{likesCount}}</p>
+            </div>
+            <div class="likeBtnDiv">
+                <form action="/{{userInfo._id}}/{{_id}}" method="POST" class="w-25 mx-auto m-5" enctype="multipart/form-data">
+                
+                    {{#if alreadyLiked}}
+                    {{!-- <input  type="submit" name="like" value="Liked!" class="fa fa-home"/> --}}
+                    <input class="like" type="image" src="/images/liked.png" type="submit" name="like"/> 
+                    {{else}}
+                    <input class="like" type="image" src="/images/notLiked.png" type="submit" name="like"/>
+                    {{!-- <input  type="submit" name="like" value="Like" class="fa fa-home"/> --}}
+
+                    {{/if}}
+                </form>
+            </div>
+        </div>
     </div>
+    
 </div>
 </div>
 
