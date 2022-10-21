@@ -63,7 +63,7 @@ router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
     .catch((error) => next(error));
 });
 
-// RUTA GET --> Profile Edit (TEST page)
+// RUTA GET --> Profile Edit
 router.get("/profileEdit", (req, res, next) => {
   User.findById(req.params.idUser)
   .then (result => {
