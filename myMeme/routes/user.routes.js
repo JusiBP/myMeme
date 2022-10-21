@@ -175,10 +175,10 @@ router.get("/:idPost", (req, res, next) => {
       let imageUserTemp = "";
       result.likes.forEach((userLike) => {
         if (req.session === !undefined) {
+          usernameTemp = req.session.currentUser.username;
+          imageUserTemp = req.session.currentUser.imageUser;
           if (userLike == req.session.currentUser._id) {
             alreadyLiked = true;
-            usernameTemp = req.session.currentUser.username;
-            imageUserTemp = req.session.currentUser.imageUser;
           }
         }
       });
@@ -230,7 +230,8 @@ router.post("/:idPost", (req, res, next) => {
 
   Post.findById(req.params.idPost).then((result) => {
     let alreadyLiked = false;
-    if (req.session === !undefined) {
+    console.log(" RESULT TO SAVE : ", result);
+    if (true) {
       result.likes.forEach((userLike) => {
         if (userLike == req.session.currentUser._id) alreadyLiked = true;
       });
@@ -238,6 +239,7 @@ router.post("/:idPost", (req, res, next) => {
       else {
         result.likes.push(req.session.currentUser._id);
       }
+      console.log(" RESULT TO SAVE : ", result);
       result.save();
     }
   });
