@@ -80,19 +80,25 @@ router.get("/profileEdit", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-// // RUTA POST EDITAR POST
-// router.post("/:idPost/postEdit", (req, res, next) => {
-//   const { idPost } = req.params;
-//   const { memeUrl, description, category } = req.body;
-//   const { idUser } = req.params;
+// RUTA POST --> Profile Edit
+router.post("/profileEdit", (req, res, next) => {
+  User.findById(req.params.idUser)
+    .then((result) => {
+      console.log("EDIT POST REQUBODY: ", req.body)
+      console.log("EDIT POST RESULT1: ", result)
 
-//   Post.findByIdAndUpdate(idPost,{ memeUrl, description, category },{ new: true })
+      result.username = req.body.username;
+      console.log("EDIT POST RESULT2: ", result)
 
-//     .then((updatedPost) => {
-//       res.redirect(`/${idUser}/${updatedPost.id}`);
-//     })
-//     .catch((error) => next(error));
-// });
+      result.save()
+      if (req.session.currentUser) {
+      res.redirect(`/${req.params.idUser}`);
+      } else {
+      res.redirect("/");
+      }
+    })
+    .catch((error) => next(error));
+});
 
 // RUTA GET --> Editar Post
 router.get("/:idPost/postEdit", (req, res, next) => {
@@ -113,6 +119,8 @@ router.get("/:idPost/postEdit", (req, res, next) => {
     })
     .catch((error) => next(error));
 });
+
+
 // RUTA POST --> Editar Post
 router.post("/:idPost/postEdit", (req, res, next) => {
   Post.findById(req.params.idPost)
@@ -188,7 +196,7 @@ router.get("/:idPost", (req, res, next) => {
         alreadyLiked: alreadyLiked,
       };
 
-      if (data.username === data.userInfo.username) {
+      if ((data.username === data.userInfo.username) || req.session.currentUser.admin == true) {
         data.sameUser = "OK";
       }
       // console.log("hola desde SINGLEPOST:", data)

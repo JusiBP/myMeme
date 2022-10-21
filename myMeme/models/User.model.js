@@ -25,8 +25,13 @@ const userSchema = new Schema(
       type: String,
       default: "/images/profileuser.jpeg",
     },
+    admin: {
+      type: Boolean,
+      default: false
+    },
     likedPosts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   },
+  
 
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
