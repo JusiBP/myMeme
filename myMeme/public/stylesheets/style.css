@@ -17,7 +17,6 @@ h1 {
 
 .bg-mymeme {
   background: linear-gradient(0deg, rgba(113,119,242,1) 0%, rgba(111,156,243,1) 100%);
-  height: 15vh;
 }
 
 .text-mymeme {
@@ -143,6 +142,11 @@ h1 {
 
 .imageUser {
   min-width: 40px;
+}
+
+.iconNewPost {
+  min-width: 20px;
+  margin-right: 1vw;
 }
 
 .header2 {
