@@ -117,41 +117,40 @@ router.get("/:idPost/postEdit", (req, res, next) => {
 router.post("/:idPost/postEdit", (req, res, next) => {
   Post.findById(req.params.idPost)
     .then((post) => {
-      console.log("HOLA DESDE POST EDIT: DENTRO", post )
-      console.log("HOLA DESDE POST EDIT: DENTRO", req.body )
+      console.log("HOLA DESDE POST EDIT: DENTRO", post);
+      console.log("HOLA DESDE POST EDIT: DENTRO", req.body);
 
       // post.memeUrl = req.body.memeUrl;
       post.category = req.body.category;
       post.description = req.body.description;
 
-      console.log("HOLA DESDE POST EDIT:", post)
+      console.log("HOLA DESDE POST EDIT:", post);
 
-      post.save()
+      post.save();
       if (req.session.currentUser) {
-      res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
+        res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
       } else {
-      res.redirect("/");
+        res.redirect("/");
       }
     })
-    
-    
+
     .catch((error) => next(error));
 });
-  // console.log("hola desde UPDATE POST");
-  // const { idUser } = req.params;
-  // const { idPost } = req.params;
-  // const { memeUrl, description, category } = req.body;
+// console.log("hola desde UPDATE POST");
+// const { idUser } = req.params;
+// const { idPost } = req.params;
+// const { memeUrl, description, category } = req.body;
 
-  // Post.findByIdAndUpdate(
-  //   idPost,
-  //   { memeUrl, description, category },
-  //   { new: true }
-  // )
-  //   .then((updatedPost) => {
-  //     console.log("hola desde UPDATE POST: ", updatedPost);
-  //     res.redirect(`/${idUser}/${updatedPost._id}`);
-  //   })
-  //   .catch((error) => next(error));
+// Post.findByIdAndUpdate(
+//   idPost,
+//   { memeUrl, description, category },
+//   { new: true }
+// )
+//   .then((updatedPost) => {
+//     console.log("hola desde UPDATE POST: ", updatedPost);
+//     res.redirect(`/${idUser}/${updatedPost._id}`);
+//   })
+//   .catch((error) => next(error));
 //});
 
 // RUTA POST --> Delete Post
@@ -172,12 +171,20 @@ router.get("/:idPost", (req, res, next) => {
     .populate("userInfo")
     .then((result) => {
       let alreadyLiked = false;
+      let usernameTemp = "Anonim";
+      let imageUserTemp = "";
       result.likes.forEach((userLike) => {
-        if (userLike == req.session.currentUser._id) alreadyLiked = true;
+        if (req.session === !undefined) {
+          if (userLike == req.session.currentUser._id) {
+            alreadyLiked = true;
+            usernameTemp = req.session.currentUser.username;
+            imageUserTemp = req.session.currentUser.imageUser;
+          }
+        }
       });
       const data = {
-        username: req.session.currentUser.username,
-        imageUser: req.session.currentUser.imageUser,
+        username: usernameTemp,
+        imageUser: imageUserTemp,
         _id: result._id,
         userInfo: result.userInfo,
         memeUrl: result.memeUrl,
@@ -223,14 +230,16 @@ router.post("/:idPost", (req, res, next) => {
 
   Post.findById(req.params.idPost).then((result) => {
     let alreadyLiked = false;
-    result.likes.forEach((userLike) => {
-      if (userLike == req.session.currentUser._id) alreadyLiked = true;
-    });
-    if (alreadyLiked) result.likes.remove(req.session.currentUser._id);
-    else {
-      result.likes.push(req.session.currentUser._id);
+    if (req.session === !undefined) {
+      result.likes.forEach((userLike) => {
+        if (userLike == req.session.currentUser._id) alreadyLiked = true;
+      });
+      if (alreadyLiked) result.likes.remove(req.session.currentUser._id);
+      else {
+        result.likes.push(req.session.currentUser._id);
+      }
+      result.save();
     }
-    result.save();
   });
   res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
 });
