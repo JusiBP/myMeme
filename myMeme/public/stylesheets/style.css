@@ -154,8 +154,16 @@ h1 {
   padding: 15px;
 }
 
+.aboutUs {
+  margin-top: 17%;
+}
+
 .like {
   width: 40px;
+}
+
+.likeIndex {
+  width: 25px;
 }
 
 .likesCount {
