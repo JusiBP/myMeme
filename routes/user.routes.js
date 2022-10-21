@@ -84,17 +84,17 @@ router.get("/profileEdit", (req, res, next) => {
 router.post("/profileEdit", (req, res, next) => {
   User.findById(req.params.idUser)
     .then((result) => {
-      console.log("EDIT POST REQUBODY: ", req.body)
-      console.log("EDIT POST RESULT1: ", result)
+      console.log("EDIT POST REQUBODY: ", req.body);
+      console.log("EDIT POST RESULT1: ", result);
 
       result.username = req.body.username;
-      console.log("EDIT POST RESULT2: ", result)
+      console.log("EDIT POST RESULT2: ", result);
 
-      result.save()
+      result.save();
       if (req.session.currentUser) {
-      res.redirect(`/${req.params.idUser}`);
+        res.redirect(`/${req.params.idUser}`);
       } else {
-      res.redirect("/");
+        res.redirect("/");
       }
     })
     .catch((error) => next(error));
@@ -119,7 +119,6 @@ router.get("/:idPost/postEdit", (req, res, next) => {
     })
     .catch((error) => next(error));
 });
-
 
 // RUTA POST --> Editar Post
 router.post("/:idPost/postEdit", (req, res, next) => {
@@ -203,9 +202,13 @@ router.get("/:idPost", (req, res, next) => {
         likesCount: result.likes.length,
         alreadyLiked: alreadyLiked,
       };
-
-      if ((data.username === data.userInfo.username) || req.session.currentUser.admin == true) {
-        data.sameUser = "OK";
+      if (req.session.currentUser) {
+        if (
+          data.username === data.userInfo.username ||
+          req.session.currentUser.admin == true
+        ) {
+          data.sameUser = "OK";
+        }
       }
       // console.log("hola desde SINGLEPOST:", data)
       res.render("singlePost", data);
