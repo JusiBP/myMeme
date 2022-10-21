@@ -1,10 +1,10 @@
 <form action="/{{userInfo._id}}/{{_id}}/postEdit" method="POST" class="w-25 mx-auto m-5">
     <div class="mb-3">
         <label for="file" class="form-label text-white" >Change your meme</label>
-        <input type="file" class="form-control-file" id="file" name="memeUrl">
+        <input type="file" class="form-control-file text-white" id="file" name="memeUrl">
     </div>
     <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
+            <label for="category" class="form-label text-white">Category</label> <br>
             <select name="category" id="category">
                 <option>{{category}}</option>
                 <option value="Random">Random</option>
@@ -14,7 +14,7 @@
                 <option value="Gaming">Gaming</option>
                 <option value="Politics">Politics</option>
                 <option value="News">News</option>
-                <option value="Anime&Manga">Anime &/38 Manga</option>
+                <option value="Anime-Manga">Anime &/38 Manga</option>
                 <option value="TV">TV</option>
                 <option value="Classics">Classics</option>
             </select>

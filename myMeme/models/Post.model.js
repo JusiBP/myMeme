@@ -32,7 +32,7 @@ const postSchema = new Schema({
       "Gaming",
       "Politics",
       "News",
-      "Anime&Manga",
+      "Anime-Manga",
       "Classics",
       "TV",
     ],

@@ -1,17 +1,19 @@
 <div class="formsDiv">
     <div class="backgroundColorMyMeme bgProfileCard">
         <p class="text-mymeme editTitle">{{username}} - Information edition</p>
-        <form class="formProfileEdit">
+
+        <form action="/{{_id}}/profileEdit" class="formProfileEdit" method="POST">
             <img class="editPicUser" src="{{imageUser}}" alt="">
             <div class="form-floating mb-1">
-                <input type="text" class="form-control" id="floatingInput" value="{{username}}">
+                <input id="username" name="username" type="text" class="form-control" value="{{username}}">
                 <label for="floatingInput">Username</label>
             </div>
-            <div class="form-floating">
+            {{!-- <div class="form-floating">
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                 <label for="floatingPassword">Password</label>
-            </div>
+            </div> --}}
             <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
         </form>
+
     </div>   
 </div>
