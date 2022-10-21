@@ -4,10 +4,10 @@ function dateFunction(post, currentUser) {
   let dateString = "";
   let dataViews = 0;
   let likedPostsTemp = [];
-  User.findById(currentUser._id).then((user) => {
-    console.log("LIKED POSTS IN DATEFUNC ", user.likedPosts);
-    likedPostsTemp = user.likedPosts;
-  });
+  // User.findById(currentUser._id).then((user) => {
+  //   console.log("LIKED POSTS IN DATEFUNC ", user.likedPosts);
+  //   likedPostsTemp = user.likedPosts;
+  // });
 
   console.log("LIKED POSTS FUERA ", likedPostsTemp);
 
