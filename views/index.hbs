@@ -13,7 +13,7 @@
             <a href="/{{userId}}/{{_id}}"><img src="{{memeUrl}}" class="card-img-top" alt="userPic"></a>
             <div class="card-body">
                 <form action="/" method="POST" enctype="multipart/form-data">
-                {{likes}}
+                <span class="text-white likeCount">{{likes}}</span>
                 <input class="likeIndex" type="image" src="/images/liked.png" type="submit" name="like"/>    
                 </form>
                 <h5 class="text-white">{{date}}</h5>
@@ -24,3 +24,31 @@
          {{/each}}
     </div>
 </div>
+14:28
+CREATE POST
+<form action="/{{_id}}/createpost" method="POST" class="w-25 mx-auto m-5 postCreateForm" enctype="multipart/form-data">
+    <div class="mb-3">
+            <label for="file" class="form-label text-white" >Add Meme</label>
+            <input type="file" class="form-control-file text-white" id="file" name="memeUrl" placeholder="Meme File">
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label text-white">Category</label> <br>
+            <select name="category" id="category">
+                <option value="Random">Random</option>
+                <option value="Animals">Animals</option>
+                <option value="WTF">WTF</option>
+                <option value="Sports">Sports</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Politics">Politics</option>
+                <option value="News">News</option>
+                <option value="Anime-Manga">Anime & Manga</option>
+                <option value="TV">TV</option>
+                <option value="Classics">Classics</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" placeholder="Description" id="description" name="description" style="height: 100px"></textarea>             
+            <label for="description"></label>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+</form>

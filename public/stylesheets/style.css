@@ -6,55 +6,44 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #131313;
 }
-
 a {
   color: #00b7ff;
 }
-
 h1 {
   color: 15px;
 }
-
 .bg-mymeme {
   background: linear-gradient(0deg, rgba(113,119,242,1) 0%, rgba(111,156,243,1) 100%);
 }
-
 .text-mymeme {
   color: #7177f2;
   font-weight: bold;
 }
-
 .text-mymemeUser {
   color: #262b8a;
   font-weight: bold;
   text-decoration: none;
 }
-
 .logo {
   width: 40vw;
   max-width: 230px;
   min-width: 160px;
 }
-
 .divisor {
   height: 3vh;
 }
-
 .mainBodyText {
   color: white;
 }
-
 .posts-mymeme { 
   padding: 4px;
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
 }
-
 .cardColorMyMeme {
   background: linear-gradient(0deg, rgba(49,52,110,1) 23%, rgba(112,142,191,1) 100%);
 }
-
 .singlePostUser {
   color: #1e226a;
   text-decoration: none;
@@ -63,7 +52,6 @@ h1 {
   font-size: x-large;
   text-align: right;
 }
-
 .singlePostImg {
   width: 85vw;
   display: block;
@@ -72,7 +60,6 @@ h1 {
   min-width: 350px;
   border-radius: 5px;
 }
-
 .singlePostInfo {
   color: white;
   text-decoration: none;
@@ -81,11 +68,9 @@ h1 {
   font-size: medium;
   margin: auto;
 }
-
 .editPencil {
   max-width: 25px;
 }
-
 .postBox {
   background: linear-gradient(0deg, rgba(49,52,110,1) 23%, rgba(112,142,191,1) 100%);
   border-radius: 20px;
@@ -93,26 +78,22 @@ h1 {
   margin: auto;
   margin-top: 20vh;
 }
-
 .backgroundColorMyMeme {
   background-color: rgb(32, 32, 32);
   border-radius: 20px;
   padding: 20px;
 }
-
 .bgProfileCard {
   min-width: 280px;
   max-width: 410px;
   margin: auto;
 }
-
 .formProfileEdit {
   min-width: 200px;
   max-width: 300px;
   text-align: center;
   margin: auto;
 }
-
 .editPicUser {
   width: 30vw;
   display: block;
@@ -121,56 +102,45 @@ h1 {
   min-width: 240px;
   max-width: 300px;
 }
-
 .formsDiv {
   padding-top: 2%;
   margin: auto;
   width: 60vw;
   max-width: 570px;
 }
-
 .editTitle {
   text-align: center;
 }
-
 .headerFixed {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1;
 }
-
 .imageUser {
   min-width: 40px;
 }
-
 .iconNewPost {
   min-width: 20px;
   margin-right: 1vw;
 }
-
 .header2 {
   height: 8vh;
   padding: 15px;
 }
-
 .aboutUs {
   margin-top: 17%;
 }
-
 .like {
   width: 40px;
 }
-
 .likeIndex {
   width: 25px;
 }
-
 .likesCount {
   margin-top: 10px;
   font-size: 25px;
 }
-
 .likesDiv {
   margin: auto;
   color:rgb(153, 149, 149);
@@ -178,15 +148,20 @@ h1 {
   justify-content: center;
   align-items: center;
 }
-
 .footer {
   position: fixed;
   bottom: 0;
   width: 100vw;
   color: rgba(113,119,242,1);
 }
-
 .desplegable {
   z-index: 2;
 }
-
+.postEditForm {
+  min-width: 260px;
+  max-width: 300px;
+}
+.postCreateForm {
+  min-width: 260px;
+  max-width: 300px;
+}

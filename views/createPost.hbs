@@ -1,5 +1,4 @@
-<form action="/{{_id}}/createpost" method="POST" class="w-25 mx-auto m-5" enctype="multipart/form-data">
-
+<form action="/{{_id}}/createpost" method="POST" class="w-25 mx-auto m-5 postCreateForm" enctype="multipart/form-data">
     <div class="mb-3">
             <label for="file" class="form-label text-white" >Add Meme</label>
             <input type="file" class="form-control-file text-white" id="file" name="memeUrl" placeholder="Meme File">
@@ -14,7 +13,7 @@
                 <option value="Gaming">Gaming</option>
                 <option value="Politics">Politics</option>
                 <option value="News">News</option>
-                <option value="Anime-Manga">Anime &/38 Manga</option>
+                <option value="Anime-Manga">Anime & Manga</option>
                 <option value="TV">TV</option>
                 <option value="Classics">Classics</option>
             </select>
@@ -25,5 +24,4 @@
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
 </form>
-
 
