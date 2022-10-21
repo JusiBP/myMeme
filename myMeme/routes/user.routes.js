@@ -113,32 +113,54 @@ router.get("/:idPost/postEdit", (req, res, next) => {
     })
     .catch((error) => next(error));
 });
-// RUTA POST EDITAR POST
+// RUTA POST --> Editar Post
 router.post("/:idPost/postEdit", (req, res, next) => {
-  console.log("hola desde UPDATE POST");
-  const { idUser } = req.params;
-  const { idPost } = req.params;
-  const { memeUrl, description, category } = req.body;
+  Post.findById(req.params.idPost)
+    .then((post) => {
+      console.log("HOLA DESDE POST EDIT: DENTRO", post);
+      console.log("HOLA DESDE POST EDIT: DENTRO", req.body);
 
-  Post.findByIdAndUpdate(
-    idPost,
-    { memeUrl, description, category },
-    { new: true }
-  )
-    .then((updatedPost) => {
-      console.log("hola desde UPDATE POST: ", updatedPost);
-      res.redirect(`/${idUser}/${updatedPost._id}`);
+      // post.memeUrl = req.body.memeUrl;
+      post.category = req.body.category;
+      post.description = req.body.description;
+
+      console.log("HOLA DESDE POST EDIT:", post);
+
+      post.save();
+      if (req.session.currentUser) {
+        res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
+      } else {
+        res.redirect("/");
+      }
     })
+
     .catch((error) => next(error));
 });
+// console.log("hola desde UPDATE POST");
+// const { idUser } = req.params;
+// const { idPost } = req.params;
+// const { memeUrl, description, category } = req.body;
 
-// RUTA POST ELIMINAR POST
+// Post.findByIdAndUpdate(
+//   idPost,
+//   { memeUrl, description, category },
+//   { new: true }
+// )
+//   .then((updatedPost) => {
+//     console.log("hola desde UPDATE POST: ", updatedPost);
+//     res.redirect(`/${idUser}/${updatedPost._id}`);
+//   })
+//   .catch((error) => next(error));
+//});
+
+// RUTA POST --> Delete Post
 router.post("/:idPost/delete", (req, res, next) => {
   const { idPost } = req.params;
+  const { idUser } = req.params;
 
-  Movie.findByIdAndRemove(idPost)
+  Post.findByIdAndRemove(idPost)
     .then((postToDelete) => {
-      res.redirect("/:idUser");
+      res.redirect(`/${idUser}`);
     })
     .catch((error) => next(error));
 });
@@ -149,12 +171,20 @@ router.get("/:idPost", (req, res, next) => {
     .populate("userInfo")
     .then((result) => {
       let alreadyLiked = false;
+      let usernameTemp = "Anonim";
+      let imageUserTemp = "";
       result.likes.forEach((userLike) => {
-        if (userLike == req.session.currentUser._id) alreadyLiked = true;
+        if (req.session === !undefined) {
+          usernameTemp = req.session.currentUser.username;
+          imageUserTemp = req.session.currentUser.imageUser;
+          if (userLike == req.session.currentUser._id) {
+            alreadyLiked = true;
+          }
+        }
       });
       const data = {
-        username: req.session.currentUser.username,
-        imageUser: req.session.currentUser.imageUser,
+        username: usernameTemp,
+        imageUser: imageUserTemp,
         _id: result._id,
         userInfo: result.userInfo,
         memeUrl: result.memeUrl,
@@ -199,24 +229,19 @@ router.post("/:idPost", (req, res, next) => {
   // });
 
   Post.findById(req.params.idPost).then((result) => {
-    console.log("CURRENT USER HERE :    --- >> ", req.session.currentUser._id);
-
-    console.log(
-      "CURRENT IDPOST HERE: ------------------->>>>>",
-      req.params.idPost
-    );
-    console.log("RESULT.LIKES ARRAY BEFORE CHANGES: ", result.likes);
     let alreadyLiked = false;
-
-    result.likes.forEach((userLike) => {
-      if (userLike == req.session.currentUser._id) alreadyLiked = true;
-    });
-    if (alreadyLiked) result.likes.remove(req.session.currentUser._id);
-    else {
-      result.likes.push(req.session.currentUser._id);
+    console.log(" RESULT TO SAVE : ", result);
+    if (true) {
+      result.likes.forEach((userLike) => {
+        if (userLike == req.session.currentUser._id) alreadyLiked = true;
+      });
+      if (alreadyLiked) result.likes.remove(req.session.currentUser._id);
+      else {
+        result.likes.push(req.session.currentUser._id);
+      }
+      console.log(" RESULT TO SAVE : ", result);
+      result.save();
     }
-    console.log("RESULT AFTer cHanges, before save to DB : ", result.likes);
-    result.save();
   });
   res.redirect(`/${req.params.idUser}/${req.params.idPost}`);
 });
