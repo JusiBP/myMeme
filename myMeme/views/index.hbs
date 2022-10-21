@@ -1,8 +1,10 @@
 <div class="divisor "></div>
 {{!-- CARDS --}}
+{{#if category}}
 <div>
-    <p class="text-light text-center">Category: <span class="text-mymeme text-center">None</span></p> 
+    <p class="text-light text-center">Category: <span class="text-mymeme text-center">{{category}}</span></p> 
 </div>
+{{/if}}
 <div class="container-fluid">
     <div class="row justify-content-center ">
          {{#each post}}
@@ -10,6 +12,10 @@
             <a href="/{{userId}}" class="btn btn-light text-mymeme btn-sm mb-2">{{username}}</a>
             <a href="/{{userId}}/{{_id}}"><img src="{{memeUrl}}" class="card-img-top" alt="userPic"></a>
             <div class="card-body">
+                <form action="/" method="POST" enctype="multipart/form-data">
+                {{likes}}
+                <input type="submit" name="like" value="Like" />    
+                </form>
                 <h5 class="text-white">{{date}}</h5>
                 <p class="card-text text-white">{{description}}</p>
                 <p class="card-text text-mymeme">{{category}}</p>

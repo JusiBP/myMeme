@@ -154,6 +154,23 @@ h1 {
   padding: 15px;
 }
 
+.like {
+  width: 40px;
+}
+
+.likesCount {
+  margin-top: 10px;
+  font-size: 25px;
+}
+
+.likesDiv {
+  margin: auto;
+  color:rgb(153, 149, 149);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -161,4 +178,7 @@ h1 {
   color: rgba(113,119,242,1);
 }
 
+.desplegable {
+  z-index: 2;
+}
 

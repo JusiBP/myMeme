@@ -1,8 +1,9 @@
 const { Schema, model } = require("mongoose");
 
 const postSchema = new Schema({
-  userInfo: { 
-    type: Schema.Types.ObjectId, ref: "User",
+  userInfo: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
     require: true,
   },
   memeUrl: {
@@ -36,6 +37,8 @@ const postSchema = new Schema({
       "TV",
     ],
   },
+  likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+
   // this second object adds extra properties: `createdAt` and `updatedAt`
   // timestamps: true,
 });
