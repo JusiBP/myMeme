@@ -44,7 +44,6 @@ router.get("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
 
 // RUTA POST --> Crear Post
 router.post("/createpost", fileUploader.single("memeUrl"), (req, res, next) => {
-  //console.log("hola desde crear POST: ", req.body);
   const { category, description } = req.body;
   Post.create({
     userInfo: req.params.idUser,
@@ -84,12 +83,7 @@ router.get("/profileEdit", (req, res, next) => {
 router.post("/profileEdit", (req, res, next) => {
   User.findById(req.params.idUser)
     .then((result) => {
-      console.log("EDIT POST REQUBODY: ", req.body);
-      console.log("EDIT POST RESULT1: ", result);
-
       result.username = req.body.username;
-      console.log("EDIT POST RESULT2: ", result);
-
       result.save();
       if (req.session.currentUser) {
         res.redirect(`/${req.params.idUser}`);
@@ -124,14 +118,9 @@ router.get("/:idPost/postEdit", (req, res, next) => {
 router.post("/:idPost/postEdit", (req, res, next) => {
   Post.findById(req.params.idPost)
     .then((post) => {
-      //console.log("HOLA DESDE POST EDIT: DENTRO", post);
-      // console.log("HOLA DESDE POST EDIT: DENTRO", req.body);
 
-      // post.memeUrl = req.body.memeUrl;
       post.category = req.body.category;
       post.description = req.body.description;
-
-      console.log("HOLA DESDE POST EDIT:", post);
 
       post.save();
       if (req.session.currentUser) {
@@ -143,22 +132,7 @@ router.post("/:idPost/postEdit", (req, res, next) => {
 
     .catch((error) => next(error));
 });
-// console.log("hola desde UPDATE POST");
-// const { idUser } = req.params;
-// const { idPost } = req.params;
-// const { memeUrl, description, category } = req.body;
 
-// Post.findByIdAndUpdate(
-//   idPost,
-//   { memeUrl, description, category },
-//   { new: true }
-// )
-//   .then((updatedPost) => {
-//     console.log("hola desde UPDATE POST: ", updatedPost);
-//     res.redirect(`/${idUser}/${updatedPost._id}`);
-//   })
-//   .catch((error) => next(error));
-//});
 
 // RUTA POST --> Delete Post
 router.post("/:idPost/delete", (req, res, next) => {
@@ -242,7 +216,6 @@ router.post("/:idPost", (req, res, next) => {
 
   Post.findById(req.params.idPost).then((result) => {
     let alreadyLiked = false;
-    //console.log(" RESULT TO SAVE : ", result);
     if (req.session.currentUser) {
       result.likes.forEach((userLike) => {
         if (userLike == req.session.currentUser._id) alreadyLiked = true;
